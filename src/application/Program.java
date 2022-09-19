@@ -19,7 +19,7 @@ public class Program {
 		DateTimeFormatter formatterWithHour = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		
 		// Variável mocada para definir se o usuário é ADM
-		Boolean isAdm = false;
+		Boolean isAdm = true;
 		
 		try {
 			// Se for ADM, vai entrar nesse menu

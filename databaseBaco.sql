@@ -33,17 +33,7 @@ create table atividade(
     FOREIGN KEY (id_evento) REFERENCES evento (id)
 );
 
-create table gestor(
-    id int primary key auto_increment not null,
-    numero_documento varchar(16) not null,
-    tipo_documento varchar(16) not null,
-    nome_completo varchar(40) not null,
-    senha varchar(16) not null,
-    isAdm bool,
-    ultimo_acesso datetime
-);
-
-create table adm(
+create table usuario(
     id int primary key auto_increment not null,
     numero_documento varchar(16) not null,
     tipo_documento varchar(16) not null,

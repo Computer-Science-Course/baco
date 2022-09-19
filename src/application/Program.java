@@ -5,8 +5,8 @@ import java.util.Locale;
 import java.util.Scanner;
 
 import model.service.DataBase;
-import views.UI.MenuAdm;
-import views.UI.MenuGestor;
+import view.UI.MenuAdm;
+import view.UI.MenuGestor;
 
 public class Program {
 

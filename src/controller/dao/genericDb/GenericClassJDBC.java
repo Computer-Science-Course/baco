@@ -1,4 +1,4 @@
-package model.dao.genericDb;
+package controller.dao.genericDb;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

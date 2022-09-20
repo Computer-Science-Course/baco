@@ -23,22 +23,22 @@ public class Usuario {
 		this.isAdm = isAdm;
 		this.ultimo_acesso = ultimo_acesso;
 	}
-	public String getNumero_documento() {
+	public String getNumeroDocumento() {
 		return numero_documento;
 	}
-	public void setNumero_documento(String numero_documento) {
+	public void setNumeroDocumento(String numero_documento) {
 		this.numero_documento = numero_documento;
 	}
-	public TipoDocumento getTipo_documento() {
+	public TipoDocumento getTipoDocumento() {
 		return tipo_documento;
 	}
-	public void setTipo_documento(TipoDocumento tipo_documento) {
+	public void setTipoDocumento(TipoDocumento tipo_documento) {
 		this.tipo_documento = tipo_documento;
 	}
-	public String getNome_completo() {
+	public String getNomeCompleto() {
 		return nome_completo;
 	}
-	public void setNome_completo(String nome_completo) {
+	public void setNomeCompleto(String nome_completo) {
 		this.nome_completo = nome_completo;
 	}
 	public String getSenha() {
@@ -47,16 +47,16 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public Boolean getIsAdm() {
+	public Boolean IsAdm() {
 		return isAdm;
 	}
 	public void setIsAdm(Boolean isAdm) {
 		this.isAdm = isAdm;
 	}
-	public LocalDateTime getUltimo_acesso() {
+	public LocalDateTime getUltimoAcesso() {
 		return ultimo_acesso;
 	}
-	public void setUltimo_acesso(LocalDateTime ultimo_acesso) {
+	public void setUltimoAcesso(LocalDateTime ultimo_acesso) {
 		this.ultimo_acesso = ultimo_acesso;
 	}
 	

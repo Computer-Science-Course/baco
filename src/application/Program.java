@@ -87,24 +87,23 @@ public class Program {
 								switch(option) {
 									case 1:
 										// Criar gestor
-										//numero_documento
 										scanner = new Scanner(System.in);
 										System.out.print("Numero do documento: ");
 										String newGestor_numero_documento = scanner.nextLine();
-										//tipo_documento
+										
 										System.out.print("Tipo de documento (CPF, MATRICULA, RG): ");
 										String newGestor_tipo_documento = scanner.nextLine().toUpperCase();
-										//nome_completo
+										
 										System.out.print("Nome completo do gestor: ");
 										String newGestor_nome = scanner.nextLine();
-										//senha
+										
 										do {
 											System.out.print("Senha: ");
 											senha1 = scanner.nextLine().toUpperCase();
 											System.out.print("Senha novamente: ");
 											senha2 = scanner.nextLine().toUpperCase();
 										}while(!senha1.equals(senha2));
-										//idAdm
+										
 										usuarioDaoJDBC.criarUsuario(new Usuario(
 												newGestor_numero_documento,
 												TipoDocumento.valueOf(newGestor_tipo_documento),
@@ -121,7 +120,30 @@ public class Program {
 											option = scanner.nextInt();
 											switch(option) {
 												case 1:
-													// Editar informações do gestor 
+													// Editar informações do gestor
+													scanner = new Scanner(System.in);
+													System.out.print("Numero do documento do gestor a ser editado: ");
+													String editGestor_numero_documento_old = scanner.nextLine();
+													System.out.print("Novo numero do documento: ");
+													String editGestor_numero_documento = scanner.nextLine();
+													
+													System.out.print("Novo tipo de documento (CPF, MATRICULA, RG): ");
+													String editGestor_tipo_documento = scanner.nextLine().toUpperCase();
+													
+													System.out.print("Novo nome completo do gestor: ");
+													String editGestor_nome = scanner.nextLine();
+													
+													usuarioDaoJDBC.editarUsuario(
+															editGestor_numero_documento_old,
+															new Usuario(
+																	editGestor_numero_documento,
+																	TipoDocumento.valueOf(editGestor_tipo_documento),
+																	editGestor_nome,
+																	null,
+																	false,
+																	null
+																)
+													);
 													break;
 												case 2:
 													// Editar senha do gestor 

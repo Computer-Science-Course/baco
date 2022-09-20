@@ -20,7 +20,9 @@ public class Program {
 		Scanner scanner = new Scanner(System.in);
 		Integer option = 0;
 		
+		// ------------ GESTOR ------------
 		String senha1 = "", senha2 = "";
+		String editGestor_numero_documento_old;
 		
 		Connection conn = DataBase.getConnection();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -99,9 +101,9 @@ public class Program {
 										
 										do {
 											System.out.print("Senha: ");
-											senha1 = scanner.nextLine().toUpperCase();
+											senha1 = scanner.nextLine();
 											System.out.print("Senha novamente: ");
-											senha2 = scanner.nextLine().toUpperCase();
+											senha2 = scanner.nextLine();
 										}while(!senha1.equals(senha2));
 										
 										usuarioDaoJDBC.criarUsuario(new Usuario(
@@ -123,7 +125,7 @@ public class Program {
 													// Editar informações do gestor
 													scanner = new Scanner(System.in);
 													System.out.print("Numero do documento do gestor a ser editado: ");
-													String editGestor_numero_documento_old = scanner.nextLine();
+													editGestor_numero_documento_old = scanner.nextLine();
 													System.out.print("Novo numero do documento: ");
 													String editGestor_numero_documento = scanner.nextLine();
 													
@@ -146,7 +148,29 @@ public class Program {
 													);
 													break;
 												case 2:
-													// Editar senha do gestor 
+													// Editar senha do gestor
+													scanner = new Scanner(System.in);
+													System.out.print("Numero do documento do gestor a ser editado: ");
+													editGestor_numero_documento_old = scanner.nextLine();
+													
+													do {
+														System.out.print("Senha: ");
+														senha1 = scanner.nextLine();
+														System.out.print("Senha novamente: ");
+														senha2 = scanner.nextLine();
+													}while(!senha1.equals(senha2));
+													
+													usuarioDaoJDBC.editarSenhaUsuario(
+															editGestor_numero_documento_old,
+															new Usuario(
+																	null,
+																	null,
+																	null,
+																	senha1,
+																	false,
+																	null
+																)
+													);
 													break;
 												case 3:
 													// Sair do menu

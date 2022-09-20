@@ -83,6 +83,28 @@ public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 		}
 		
 	}
+	
+	@Override
+	public void editarSenhaUsuario(String numero_documento, Usuario usuario) {
+		PreparedStatement statement = null;
+		try {			
+			String query = "UPDATE usuario " +
+					"SET " +
+					"senha =  ? " +
+					"WHERE " +
+					"(numero_documento = " + numero_documento + ")";
+			
+			statement = conn.prepareStatement(query);
+			statement.setString(1, usuario.getSenha());
+			
+			statement.executeUpdate();			
+			
+		}
+		catch (SQLException error) {
+			error.printStackTrace();
+		}
+		
+	}
 
 	@Override
 	public void excluirUsuario(String numero_documento) {

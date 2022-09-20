@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -57,15 +58,60 @@ public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 	}
 
 	@Override
-	public List<Usuario> listarTodos(String nome_tabela) {
+	public List<Usuario> listarTodos(Boolean isAdm) {
 		GenericDbJDBC genericDbJDBC = new GenericDbJDBC(conn);
 		List<Usuario> usuarios = new ArrayList<>();
 		
 		DateTimeFormatter formatterWithHour = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		
 		try {
-;
-			ResultSet result = genericDbJDBC.listAll("usuario");
+			String query = "SELECT * FROM usuario WHERE isAdm = " + isAdm;
+			
+			Statement statement = conn.createStatement();
+			
+			ResultSet result = statement.executeQuery(query);
+			
+			while(result.next()) {
+				LocalDateTime ultimo_acesso = result.getString("ultimo_acesso") == null ?
+						null : LocalDateTime.parse(result.getString("ultimo_acesso"), formatterWithHour);
+				
+				Usuario usuario = new Usuario(
+						result.getString("numero_documento"),
+						TipoDocumento.valueOf(result.getString("tipo_documento")),
+						result.getString("nome_completo"),
+						null,
+						result.getBoolean("isAdm"),
+						ultimo_acesso
+				);
+				
+				usuario.setId(result.getInt("id"));
+				
+				usuarios.add(usuario);
+			}
+			
+			return usuarios;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}	
+	}
+
+	@Override
+	public List<Usuario> listarTodosPorDocumento(Boolean isAdm, String numero_documento) {
+		GenericDbJDBC genericDbJDBC = new GenericDbJDBC(conn);
+		List<Usuario> usuarios = new ArrayList<>();
+		
+		DateTimeFormatter formatterWithHour = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		
+		try {
+			
+			String query = "SELECT * FROM usuario " +
+						"WHERE isAdm = " + isAdm + 
+						" AND numero_documento = " + numero_documento;
+			
+			Statement statement = conn.createStatement();
+			
+			ResultSet result = statement.executeQuery(query);
 			
 			while(result.next()) {
 				LocalDateTime ultimo_acesso = result.getString("ultimo_acesso") == null ?
@@ -90,19 +136,48 @@ public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());
 		}
+	}
+
+	@Override
+	public List<Usuario> listarTodosPorNome(Boolean isAdm, String nome_tabela, String nome) {
+		GenericDbJDBC genericDbJDBC = new GenericDbJDBC(conn);
+		List<Usuario> usuarios = new ArrayList<>();
 		
-	}
-
-	@Override
-	public List<Usuario> listarTodosPorDocumento(String nome_tabela, String numero_documento) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Usuario> listarTodosPorNome(String nome_tabela, String nome) {
-		// TODO Auto-generated method stub
-		return null;
+		DateTimeFormatter formatterWithHour = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		
+		try {
+			
+			String query = "SELECT * FROM usuario " +
+						"WHERE isAdm = " + isAdm + 
+						" AND nome_completo = " + nome;
+			
+			Statement statement = conn.createStatement();
+			
+			ResultSet result = statement.executeQuery(query);
+			
+			while(result.next()) {
+				LocalDateTime ultimo_acesso = result.getString("ultimo_acesso") == null ?
+						null : LocalDateTime.parse(result.getString("ultimo_acesso"), formatterWithHour);
+				
+				Usuario usuario = new Usuario(
+						result.getString("numero_documento"),
+						TipoDocumento.valueOf(result.getString("tipo_documento")),
+						result.getString("nome_completo"),
+						null,
+						result.getBoolean("isAdm"),
+						ultimo_acesso
+				);
+				
+				usuario.setId(result.getInt("id"));
+				
+				usuarios.add(usuario);
+			}
+			
+			return usuarios;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
 	}
 
 }

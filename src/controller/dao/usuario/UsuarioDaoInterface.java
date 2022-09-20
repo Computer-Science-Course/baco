@@ -7,7 +7,7 @@ import model.entities.usuario.Usuario;
 public interface UsuarioDaoInterface {
 	void editarUsuario(String numero_documento, Usuario usuario);
 	void excluirUsuario(String numero_documento);
-	List<Usuario> listarTodos(String nome_tabela);	
-	List<Usuario> listarTodosPorDocumento(String nome_tabela, String numero_documento);	
-	List<Usuario> listarTodosPorNome(String nome_tabela, String nome);	
+	List<Usuario> listarTodos(Boolean isAdm);	
+	List<Usuario> listarTodosPorDocumento(Boolean isAdm, String numero_documento);	
+	List<Usuario> listarTodosPorNome(Boolean isAdm, String nome_tabela, String nome);	
 }

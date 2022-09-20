@@ -1,9 +1,14 @@
 package application;
 
+import java.sql.Connection;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Scanner;
 
+import controller.dao.usuario.UsuarioDaoJDBC;
+import model.entities.usuario.Usuario;
+import model.enums.TipoDocumento;
 import model.service.DataBase;
 import view.UI.MenuAdm;
 import view.UI.MenuGestor;
@@ -15,8 +20,13 @@ public class Program {
 		Scanner scanner = new Scanner(System.in);
 		Integer option = 0;
 		
+		String senha1 = "", senha2 = "";
+		
+		Connection conn = DataBase.getConnection();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		DateTimeFormatter formatterWithHour = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+		
+		UsuarioDaoJDBC usuarioDaoJDBC = new UsuarioDaoJDBC(conn);
 		
 		// Variável mocada para definir se o usuário é ADM
 		Boolean isAdm = true;
@@ -77,6 +87,32 @@ public class Program {
 								switch(option) {
 									case 1:
 										// Criar gestor
+										//numero_documento
+										scanner = new Scanner(System.in);
+										System.out.print("Numero do documento: ");
+										String newGestor_numero_documento = scanner.nextLine();
+										//tipo_documento
+										System.out.print("Tipo de documento (CPF, MATRICULA, RG): ");
+										String newGestor_tipo_documento = scanner.nextLine().toUpperCase();
+										//nome_completo
+										System.out.print("Nome completo do gestor: ");
+										String newGestor_nome = scanner.nextLine();
+										//senha
+										do {
+											System.out.print("Senha: ");
+											senha1 = scanner.nextLine().toUpperCase();
+											System.out.print("Senha novamente: ");
+											senha2 = scanner.nextLine().toUpperCase();
+										}while(!senha1.equals(senha2));
+										//idAdm
+										usuarioDaoJDBC.criarUsuario(new Usuario(
+												newGestor_numero_documento,
+												TipoDocumento.valueOf(newGestor_tipo_documento),
+												newGestor_nome,
+												senha1,
+												false,
+												null
+										));
 										break;
 									case 2:
 										option = 0;

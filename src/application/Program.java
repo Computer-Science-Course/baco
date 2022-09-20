@@ -183,6 +183,11 @@ public class Program {
 										break;
 									case 3:
 										// Excluir gestor
+										scanner = new Scanner(System.in);
+										System.out.print("Numero do documento do gestor a ser editado: ");
+										String deleteGestor_numero_documento = scanner.nextLine();
+										
+										usuarioDaoJDBC.excluirUsuario(deleteGestor_numero_documento);
 										break;
 									case 4:
 										// Listar todos gestores

@@ -58,7 +58,7 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public Boolean IsAdm() {
+	public Boolean isAdm() {
 		return isAdm;
 	}
 	public void setIsAdm(Boolean isAdm) {

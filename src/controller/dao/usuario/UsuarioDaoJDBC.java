@@ -24,6 +24,41 @@ public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 	}
 	
 	@Override
+	public void criarUsuario(Usuario usuario) {
+		List<Usuario> usuarios = this.listarTodos(usuario.isAdm());
+		if(usuarios.size() == 0) {
+			PreparedStatement statement = null;
+			
+			try {
+				String query = "INSERT INTO usuario " +
+						"(numero_documento, tipo_documento, nome_completo, senha, isAdm) " +
+						"VALUES " +
+						"(?, ?, ?, ?, ?)";
+				
+				statement = conn.prepareStatement(
+					query, 
+					Statement.RETURN_GENERATED_KEYS
+				);
+
+				statement.setString(1, usuario.getNumeroDocumento());
+				statement.setString(2, usuario.getTipoDocumento().name());
+				statement.setString(3, usuario.getNomeCompleto());
+				statement.setString(4, usuario.getSenha());
+				statement.setBoolean(5, usuario.isAdm());
+
+				statement.executeUpdate();
+				
+			}
+			catch (SQLException error) {
+				throw new DbException(error.getMessage());
+			}
+		} else {
+			System.out.println("[JÁ EXISTE UM USÁRIO COM ESSE DOCUMENTO]");
+		}
+		
+	}
+	
+	@Override
 	public void editarUsuario(String numero_documento, Usuario usuario) {
 		PreparedStatement statement = null;
 		try {			
@@ -59,7 +94,6 @@ public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 
 	@Override
 	public List<Usuario> listarTodos(Boolean isAdm) {
-		GenericDbJDBC genericDbJDBC = new GenericDbJDBC(conn);
 		List<Usuario> usuarios = new ArrayList<>();
 		
 		DateTimeFormatter formatterWithHour = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -98,7 +132,6 @@ public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 
 	@Override
 	public List<Usuario> listarTodosPorDocumento(Boolean isAdm, String numero_documento) {
-		GenericDbJDBC genericDbJDBC = new GenericDbJDBC(conn);
 		List<Usuario> usuarios = new ArrayList<>();
 		
 		DateTimeFormatter formatterWithHour = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -140,7 +173,6 @@ public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 
 	@Override
 	public List<Usuario> listarTodosPorNome(Boolean isAdm, String nome_tabela, String nome) {
-		GenericDbJDBC genericDbJDBC = new GenericDbJDBC(conn);
 		List<Usuario> usuarios = new ArrayList<>();
 		
 		DateTimeFormatter formatterWithHour = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

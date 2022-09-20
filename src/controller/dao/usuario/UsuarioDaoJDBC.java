@@ -3,10 +3,10 @@ package controller.dao.usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.List;
 
 import model.entities.usuario.Usuario;
+import model.service.DbException;
 
 public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 
@@ -44,7 +44,22 @@ public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 
 	@Override
 	public void excluirUsuario(String numero_documento) {
-		// TODO Auto-generated method stub
+		PreparedStatement statement = null;
+		
+		try {
+			
+			String query = "DELETE FROM usuario " +
+							"WHERE " +
+							"numero_documento = ?";
+			
+			statement = conn.prepareStatement(query);
+			statement.setString(1, numero_documento);
+			
+			statement.executeUpdate();
+		}
+		catch (SQLException error) {
+			throw new DbException(error.getMessage());
+		}	
 		
 	}
 

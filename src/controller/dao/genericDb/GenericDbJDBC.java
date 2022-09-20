@@ -8,11 +8,11 @@ import java.sql.Statement;
 
 import model.service.DbException;
 
-public class GenericClassJDBC implements GenericDbInterface{
+public class GenericDbJDBC implements GenericDbInterface{
 
 	private Connection conn;
 	
-	public GenericClassJDBC(Connection conn) {
+	public GenericDbJDBC(Connection conn) {
 		this.conn = conn;
 	}
 	
@@ -53,7 +53,7 @@ public class GenericClassJDBC implements GenericDbInterface{
 			String query = "DELETE FROM " + tableName +
 					" WHERE " + key + " = ?";
 			statement = conn.prepareStatement(query);
-			statement.setString(1,value);
+			statement.setString(1, value);
 			
 			statement.executeUpdate();
 		}

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import model.enums.TipoDocumento;
 
 public class Usuario {
+	private Integer id;
 	private String numero_documento;
 	private TipoDocumento tipo_documento;
 	private String nome_completo;
@@ -23,6 +24,16 @@ public class Usuario {
 		this.isAdm = isAdm;
 		this.ultimo_acesso = ultimo_acesso;
 	}
+	
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
 	public String getNumeroDocumento() {
 		return numero_documento;
 	}

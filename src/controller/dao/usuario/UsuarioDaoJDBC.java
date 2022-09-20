@@ -2,10 +2,16 @@ package controller.dao.usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
+import controller.dao.genericDb.GenericDbJDBC;
 import model.entities.usuario.Usuario;
+import model.enums.TipoDocumento;
 import model.service.DbException;
 
 public class UsuarioDaoJDBC implements UsuarioDaoInterface{
@@ -44,29 +50,47 @@ public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 
 	@Override
 	public void excluirUsuario(String numero_documento) {
-		PreparedStatement statement = null;
+		GenericDbJDBC genericDbJDBC = new GenericDbJDBC(conn);
 		
-		try {
-			
-			String query = "DELETE FROM usuario " +
-							"WHERE " +
-							"numero_documento = ?";
-			
-			statement = conn.prepareStatement(query);
-			statement.setString(1, numero_documento);
-			
-			statement.executeUpdate();
-		}
-		catch (SQLException error) {
-			throw new DbException(error.getMessage());
-		}	
+		genericDbJDBC.deleteWhere("usuario", "numero_documento", numero_documento);	
 		
 	}
 
 	@Override
 	public List<Usuario> listarTodos(String nome_tabela) {
-		// TODO Auto-generated method stub
-		return null;
+		GenericDbJDBC genericDbJDBC = new GenericDbJDBC(conn);
+		List<Usuario> usuarios = new ArrayList<>();
+		
+		DateTimeFormatter formatterWithHour = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		
+		try {
+;
+			ResultSet result = genericDbJDBC.listAll("usuario");
+			
+			while(result.next()) {
+				LocalDateTime ultimo_acesso = result.getString("ultimo_acesso") == null ?
+						null : LocalDateTime.parse(result.getString("ultimo_acesso"), formatterWithHour);
+				
+				Usuario usuario = new Usuario(
+						result.getString("numero_documento"),
+						TipoDocumento.valueOf(result.getString("tipo_documento")),
+						result.getString("nome_completo"),
+						null,
+						result.getBoolean("isAdm"),
+						ultimo_acesso
+				);
+				
+				usuario.setId(result.getInt("id"));
+				
+				usuarios.add(usuario);
+			}
+			
+			return usuarios;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		
 	}
 
 	@Override

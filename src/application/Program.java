@@ -367,7 +367,18 @@ public class Program {
 								option = scanner.nextInt();
 								switch(option) {
 									case 1:
-										// Cadastrar participante
+										// Cadastrar participante INCOMPLETO!!!
+										scanner = new Scanner(System.in);
+										System.out.print("Nome do Participante: ");
+										String newParticipante_nome = scanner.nextLine();
+										
+										System.out.print("Numero do documento: ");
+										String newParticipante_numero_documento = scanner.nextLine();
+																				
+										System.out.print("Tipo de documento (CPF, MATRICULA, RG): ");
+										String newParticipante_tipo_documento = scanner.nextLine().toUpperCase();
+										
+										
 										break;
 									case 2:
 										// Editar participante

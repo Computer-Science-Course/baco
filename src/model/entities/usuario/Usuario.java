@@ -1,6 +1,7 @@
 package model.entities.usuario;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import model.enums.TipoDocumento;
 
@@ -70,6 +71,24 @@ public class Usuario {
 	public void setUltimoAcesso(LocalDateTime ultimo_acesso) {
 		this.ultimo_acesso = ultimo_acesso;
 	}
+
+
+	@Override
+	public String toString() {
+		StringBuilder stringBuilder = new StringBuilder();
+		DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+		
+		stringBuilder.append("Id: " + this.getId());
+		stringBuilder.append(", Numero de documento: " + this.getNumeroDocumento());
+		stringBuilder.append(", Tipo de documento: " + this.getTipoDocumento());
+		stringBuilder.append(", Nome Completo: " + this.getNomeCompleto());
+		stringBuilder.append(", Senha: " + this.getSenha());
+		stringBuilder.append(", Adm: " + this.isAdm());
+		stringBuilder.append(", Último acesso: " + this.getUltimoAcesso().format(formatacao));
+		
+		return stringBuilder.toString();
+	}
+	
 	
 	
 }

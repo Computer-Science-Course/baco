@@ -1,12 +1,14 @@
 package application;
 
 import java.sql.Connection;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
 import controller.dao.usuario.UsuarioDaoJDBC;
+import model.entities.usuario.Adm;
 import model.entities.usuario.Usuario;
 import model.enums.TipoDocumento;
 import model.service.DataBase;
@@ -31,8 +33,11 @@ public class Program {
 		
 		UsuarioDaoJDBC usuarioDaoJDBC = new UsuarioDaoJDBC(conn);
 		
+		// ------------ ADM ------------
 		// Variável mocada para definir se o usuário é ADM
 		Boolean isAdm = true;
+		Adm adm = new Adm("123456", TipoDocumento.valueOf("CPF"), "usuario master", "123", true, null);
+		List<Usuario> adms;
 		
 		try {
 			// Se for ADM, vai entrar nesse menu
@@ -50,6 +55,10 @@ public class Program {
 								switch(option) {
 									case 1:
 										// Visualizar adm-perfil
+										adms = usuarioDaoJDBC.listarTodosPorDocumento(true, adm.getNumeroDocumento());
+										for(Usuario ADM: adms) {
+											System.out.println(ADM);
+										}
 										break;
 									case 2:
 										option = 0;

@@ -25,7 +25,7 @@ public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 	
 	@Override
 	public void criarUsuario(Usuario usuario) {
-		List<Usuario> usuarios = this.listarTodos(usuario.isAdm());
+		List<Usuario> usuarios = this.listarTodosPorDocumento(usuario.isAdm(), usuario.getNumeroDocumento());
 		if(usuarios.size() == 0) {
 			PreparedStatement statement = null;
 			
@@ -74,6 +74,28 @@ public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 			statement.setString(1, usuario.getNumeroDocumento());
 			statement.setString(2, usuario.getTipoDocumento().name());
 			statement.setString(3, usuario.getNomeCompleto());
+			
+			statement.executeUpdate();			
+			
+		}
+		catch (SQLException error) {
+			error.printStackTrace();
+		}
+		
+	}
+	
+	@Override
+	public void editarSenhaUsuario(String numero_documento, Usuario usuario) {
+		PreparedStatement statement = null;
+		try {			
+			String query = "UPDATE usuario " +
+					"SET " +
+					"senha =  ? " +
+					"WHERE " +
+					"(numero_documento = " + numero_documento + ")";
+			
+			statement = conn.prepareStatement(query);
+			statement.setString(1, usuario.getSenha());
 			
 			statement.executeUpdate();			
 			
@@ -172,7 +194,7 @@ public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 	}
 
 	@Override
-	public List<Usuario> listarTodosPorNome(Boolean isAdm, String nome_tabela, String nome) {
+	public List<Usuario> listarTodosPorNome(Boolean isAdm, String nome) {
 		List<Usuario> usuarios = new ArrayList<>();
 		
 		DateTimeFormatter formatterWithHour = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -181,7 +203,7 @@ public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 			
 			String query = "SELECT * FROM usuario " +
 						"WHERE isAdm = " + isAdm + 
-						" AND nome_completo = " + nome;
+						" AND nome_completo LIKE '%" + nome + "%'";
 			
 			Statement statement = conn.createStatement();
 			

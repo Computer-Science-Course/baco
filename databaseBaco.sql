@@ -50,3 +50,9 @@ create table participante_atividade(
     FOREIGN KEY (id_atividade) REFERENCES atividade (id),
     PRIMARY KEY(id_participante, id_atividade)
 );
+
+INSERT INTO usuario
+	(numero_documento, tipo_documento, nome_completo, senha, isAdm, ultimo_acesso)
+VALUES
+    ("123456", "CPF", "usuario master", "123", true, null);
+    

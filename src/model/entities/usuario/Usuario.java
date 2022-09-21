@@ -75,6 +75,7 @@ public class Usuario {
 
 	@Override
 	public String toString() {
+<<<<<<< HEAD
 		StringBuilder stringBuilder = new StringBuilder();
 		DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		
@@ -89,6 +90,12 @@ public class Usuario {
 		return stringBuilder.toString();
 	}
 	
+=======
+		return "Usuario [id=" + id + ", numero_documento=" + numero_documento + ", tipo_documento=" + tipo_documento
+				+ ", nome_completo=" + nome_completo + ", senha=" + senha + ", isAdm=" + isAdm + ", ultimo_acesso="
+				+ ultimo_acesso + "]";
+	}
+>>>>>>> 3b87fff74094ca3294fce18fa370b2f6b107e943
 	
 	
 }

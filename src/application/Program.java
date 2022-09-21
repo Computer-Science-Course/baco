@@ -1,9 +1,16 @@
 package application;
 
+import java.sql.Connection;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
+import controller.dao.usuario.UsuarioDaoJDBC;
+import model.entities.usuario.Adm;
+import model.entities.usuario.Usuario;
+import model.enums.TipoDocumento;
 import model.service.DataBase;
 import view.UI.MenuAdm;
 import view.UI.MenuGestor;
@@ -15,11 +22,23 @@ public class Program {
 		Scanner scanner = new Scanner(System.in);
 		Integer option = 0;
 		
+		// ------------ GESTOR ------------
+		String senha1 = "", senha2 = "";
+		String editGestor_numero_documento_old, gestor_numero_documento, gestor_nome;
+		List<Usuario> gestores;
+		
+		Connection conn = DataBase.getConnection();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		DateTimeFormatter formatterWithHour = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		
+		UsuarioDaoJDBC usuarioDaoJDBC = new UsuarioDaoJDBC(conn);
+		
+		// ------------ ADM ------------
 		// Variável mocada para definir se o usuário é ADM
 		Boolean isAdm = true;
+		// Variável mocada para definir ADM
+		Adm adm = new Adm("123456", TipoDocumento.valueOf("CPF"), "usuario master", "123", true, null);
+		List<Usuario> adms;
 		
 		try {
 			// Se for ADM, vai entrar nesse menu
@@ -37,6 +56,10 @@ public class Program {
 								switch(option) {
 									case 1:
 										// Visualizar adm-perfil
+										adms = usuarioDaoJDBC.listarTodosPorDocumento(true, adm.getNumeroDocumento());
+										for(Usuario ADM: adms) {
+											System.out.println(ADM);
+										}
 										break;
 									case 2:
 										option = 0;
@@ -77,6 +100,31 @@ public class Program {
 								switch(option) {
 									case 1:
 										// Criar gestor
+										scanner = new Scanner(System.in);
+										System.out.print("Numero do documento: ");
+										String newGestor_numero_documento = scanner.nextLine();
+										
+										System.out.print("Tipo de documento (CPF, MATRICULA, RG): ");
+										String newGestor_tipo_documento = scanner.nextLine().toUpperCase();
+										
+										System.out.print("Nome completo do gestor: ");
+										String newGestor_nome = scanner.nextLine();
+										
+										do {
+											System.out.print("Senha: ");
+											senha1 = scanner.nextLine();
+											System.out.print("Senha novamente: ");
+											senha2 = scanner.nextLine();
+										}while(!senha1.equals(senha2));
+										
+										usuarioDaoJDBC.criarUsuario(new Usuario(
+												newGestor_numero_documento,
+												TipoDocumento.valueOf(newGestor_tipo_documento),
+												newGestor_nome,
+												senha1,
+												false,
+												null
+										));
 										break;
 									case 2:
 										option = 0;
@@ -85,10 +133,55 @@ public class Program {
 											option = scanner.nextInt();
 											switch(option) {
 												case 1:
-													// Editar informações do gestor 
+													// Editar informações do gestor
+													scanner = new Scanner(System.in);
+													System.out.print("Numero do documento do gestor a ser editado: ");
+													editGestor_numero_documento_old = scanner.nextLine();
+													System.out.print("Novo numero do documento: ");
+													String editGestor_numero_documento = scanner.nextLine();
+													
+													System.out.print("Novo tipo de documento (CPF, MATRICULA, RG): ");
+													String editGestor_tipo_documento = scanner.nextLine().toUpperCase();
+													
+													System.out.print("Novo nome completo do gestor: ");
+													String editGestor_nome = scanner.nextLine();
+													
+													usuarioDaoJDBC.editarUsuario(
+															editGestor_numero_documento_old,
+															new Usuario(
+																	editGestor_numero_documento,
+																	TipoDocumento.valueOf(editGestor_tipo_documento),
+																	editGestor_nome,
+																	null,
+																	false,
+																	null
+																)
+													);
 													break;
 												case 2:
-													// Editar senha do gestor 
+													// Editar senha do gestor
+													scanner = new Scanner(System.in);
+													System.out.print("Numero do documento do gestor a ser editado: ");
+													editGestor_numero_documento_old = scanner.nextLine();
+													
+													do {
+														System.out.print("Senha: ");
+														senha1 = scanner.nextLine();
+														System.out.print("Senha novamente: ");
+														senha2 = scanner.nextLine();
+													}while(!senha1.equals(senha2));
+													
+													usuarioDaoJDBC.editarSenhaUsuario(
+															editGestor_numero_documento_old,
+															new Usuario(
+																	null,
+																	null,
+																	null,
+																	senha1,
+																	false,
+																	null
+																)
+													);
 													break;
 												case 3:
 													// Sair do menu
@@ -101,9 +194,18 @@ public class Program {
 										break;
 									case 3:
 										// Excluir gestor
+										scanner = new Scanner(System.in);
+										System.out.print("Numero do documento do gestor a ser editado: ");
+										String deleteGestor_numero_documento = scanner.nextLine();
+										
+										usuarioDaoJDBC.excluirUsuario(deleteGestor_numero_documento);
 										break;
 									case 4:
 										// Listar todos gestores
+										gestores = usuarioDaoJDBC.listarTodos(false);
+										for(Usuario gestor: gestores) {
+											System.out.println(gestor);
+										}
 										break;
 									case 5:
 										option = 0;
@@ -113,9 +215,25 @@ public class Program {
 											switch(option) {
 												case 1:
 													// Listar gestores pelo número de documento
+													scanner = new Scanner(System.in);
+													System.out.print("Número de acesso: ");
+													gestor_numero_documento = scanner.nextLine();
+													
+													gestores = usuarioDaoJDBC.listarTodosPorDocumento(false, gestor_numero_documento);
+													for(Usuario gestor: gestores) {
+														System.out.println(gestor);
+													}
 													break;
 												case 2:
 													// Listar gestores pelo nome
+													scanner = new Scanner(System.in);
+													System.out.print("Nome: ");
+													gestor_nome = scanner.nextLine();
+													
+													gestores = usuarioDaoJDBC.listarTodosPorNome(false, gestor_nome);
+													for(Usuario gestor: gestores) {
+														System.out.println(gestor);
+													}
 													break;
 												case 3:
 													// Sair do menu

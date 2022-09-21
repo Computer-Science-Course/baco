@@ -22,7 +22,7 @@ public class Program {
 		
 		// ------------ GESTOR ------------
 		String senha1 = "", senha2 = "";
-		String editGestor_numero_documento_old;
+		String editGestor_numero_documento_old, gestor_numero_documento;
 		List<Usuario> gestores;
 		
 		Connection conn = DataBase.getConnection();
@@ -205,6 +205,14 @@ public class Program {
 											switch(option) {
 												case 1:
 													// Listar gestores pelo número de documento
+													scanner = new Scanner(System.in);
+													System.out.print("Número de acesso: ");
+													gestor_numero_documento = scanner.nextLine();
+													
+													gestores = usuarioDaoJDBC.listarTodosPorDocumento(false, gestor_numero_documento);
+													for(Usuario gestor: gestores) {
+														System.out.println(gestor);
+													}
 													break;
 												case 2:
 													// Listar gestores pelo nome

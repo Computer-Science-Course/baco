@@ -25,7 +25,7 @@ public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 	
 	@Override
 	public void criarUsuario(Usuario usuario) {
-		List<Usuario> usuarios = this.listarTodos(usuario.isAdm());
+		List<Usuario> usuarios = this.listarTodosPorDocumento(usuario.isAdm(), usuario.getNumeroDocumento());
 		if(usuarios.size() == 0) {
 			PreparedStatement statement = null;
 			

@@ -70,6 +70,14 @@ public class Usuario {
 	public void setUltimoAcesso(LocalDateTime ultimo_acesso) {
 		this.ultimo_acesso = ultimo_acesso;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", numero_documento=" + numero_documento + ", tipo_documento=" + tipo_documento
+				+ ", nome_completo=" + nome_completo + ", senha=" + senha + ", isAdm=" + isAdm + ", ultimo_acesso="
+				+ ultimo_acesso + "]";
+	}
 	
 	
 }

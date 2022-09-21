@@ -1,8 +1,8 @@
 package application;
 
 import java.sql.Connection;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -23,6 +23,7 @@ public class Program {
 		// ------------ GESTOR ------------
 		String senha1 = "", senha2 = "";
 		String editGestor_numero_documento_old;
+		List<Usuario> gestores;
 		
 		Connection conn = DataBase.getConnection();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -191,6 +192,10 @@ public class Program {
 										break;
 									case 4:
 										// Listar todos gestores
+										gestores = usuarioDaoJDBC.listarTodos(false);
+										for(Usuario gestor: gestores) {
+											System.out.println(gestor);
+										}
 										break;
 									case 5:
 										option = 0;

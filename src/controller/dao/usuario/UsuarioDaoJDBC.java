@@ -194,7 +194,7 @@ public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 	}
 
 	@Override
-	public List<Usuario> listarTodosPorNome(Boolean isAdm, String nome_tabela, String nome) {
+	public List<Usuario> listarTodosPorNome(Boolean isAdm, String nome) {
 		List<Usuario> usuarios = new ArrayList<>();
 		
 		DateTimeFormatter formatterWithHour = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -203,7 +203,7 @@ public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 			
 			String query = "SELECT * FROM usuario " +
 						"WHERE isAdm = " + isAdm + 
-						" AND nome_completo = " + nome;
+						" AND nome_completo LIKE '%" + nome + "%'";
 			
 			Statement statement = conn.createStatement();
 			

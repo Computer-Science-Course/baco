@@ -11,5 +11,5 @@ public interface UsuarioDaoInterface {
 	void excluirUsuario(String numero_documento);
 	List<Usuario> listarTodos(Boolean isAdm);	
 	List<Usuario> listarTodosPorDocumento(Boolean isAdm, String numero_documento);	
-	List<Usuario> listarTodosPorNome(Boolean isAdm, String nome_tabela, String nome);	
+	List<Usuario> listarTodosPorNome(Boolean isAdm, String nome);	
 }

@@ -15,6 +15,7 @@ public class Atividade {
 	private LocalDateTime data_termino;
 	private Double duracao;
 	private String nome_responsavel;
+	
 	public Integer getId() {
 		return id;
 	}

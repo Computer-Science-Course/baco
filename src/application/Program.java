@@ -378,6 +378,9 @@ public class Program {
 										System.out.print("Tipo de documento (CPF, MATRICULA, RG): ");
 										String newParticipante_tipo_documento = scanner.nextLine().toUpperCase();
 										
+//										newParticipante = new Participante(null, descricao, preco);
+//										participanteDao.CriarParticipante(newParticipante);
+//										System.out.println("Cadrastado com sucesso!");
 										
 										break;
 									case 2:

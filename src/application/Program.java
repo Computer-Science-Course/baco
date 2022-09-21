@@ -95,10 +95,37 @@ public class Program {
 															editAdm_numero_documento_old,
 															editedAdm
 													);
+													editedAdm.setSenha(adm.getSenha());
 													adm = editedAdm;
 													break;
 												case 2:
 													// Editar adm-senha
+													scanner = new Scanner(System.in);
+													System.out.print("Senha antiga: ");
+													senha1 = scanner.nextLine();
+													if(senha1.equals(adm.getSenha())) {
+														do {
+															System.out.print("Senha: ");
+															senha1 = scanner.nextLine();
+															System.out.print("Senha novamente: ");
+															senha2 = scanner.nextLine();
+														}while(!senha1.equals(senha2));
+														
+														usuarioDaoJDBC.editarSenhaUsuario(
+																adm.getNumeroDocumento(),
+																new Usuario(
+																		null,
+																		null,
+																		null,
+																		senha1,
+																		false,
+																		null
+																		)
+																);
+														adm.setSenha(senha1);
+													}else {
+														System.out.println("[Senha inválida!]");
+													}
 													break;
 												case 3:
 													break;

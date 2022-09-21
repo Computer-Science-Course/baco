@@ -29,6 +29,7 @@ public class Program {
 		String senha1 = "", senha2 = "";
 		String editGestor_numero_documento_old, gestor_numero_documento, gestor_nome;
 		List<Usuario> gestores;
+		List<Evento> eventos;
 		EventoDaoJDBC eventoDaoJDBC = new EventoDaoJDBC(conn);
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -381,12 +382,20 @@ public class Program {
 										break;
 									case 4:
 										// Listar todos os eventos
-										List<Evento> eventos = eventoDaoJDBC.listarTodos();
+										eventos = eventoDaoJDBC.listarTodos();
 										for(Evento evento: eventos) {
 											System.out.println(evento);
 										}
 										break;
 									case 5:
+										scanner = new Scanner(System.in);
+
+										System.out.print("Nome: ");
+										String eventName = scanner.nextLine();
+										eventos = eventoDaoJDBC.listarTodosPorNome(eventName);
+										for(Evento evento: eventos) {
+											System.out.println(evento);
+										}
 										// Listar por nome
 										break;
 									case 6:

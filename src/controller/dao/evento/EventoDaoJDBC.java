@@ -127,7 +127,7 @@ public class EventoDaoJDBC implements EventoDaoInterface {
 					"SELECT * FROM evento " 
 					+ "WHERE nome LIKE '%" + nome + "%'");
 			rs = st.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				Evento evento = new Evento();
 				evento.setId(rs.getString("id"));
 				evento.setNome(rs.getString("nome"));

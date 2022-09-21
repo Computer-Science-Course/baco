@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.Scanner;
 
 import controller.dao.usuario.UsuarioDaoJDBC;
+import model.entities.evento.Evento;
 import model.entities.usuario.Adm;
 import model.entities.usuario.Usuario;
 import model.enums.TipoDocumento;
@@ -35,7 +36,7 @@ public class Program {
 		
 		// ------------ ADM ------------
 		// Variável mocada para definir se o usuário é ADM
-		Boolean isAdm = true;
+		Boolean isAdm = false;
 		// Variável mocada para definir ADM
 		Adm adm = new Adm("123456", TipoDocumento.valueOf("CPF"), "usuario master", "123", true, null);
 		List<Usuario> adms;
@@ -328,6 +329,22 @@ public class Program {
 								switch(option) {
 									case 1:
 										// Criar evento
+//										String nome, String titulo, String descricao, LocalDateTime data_inicio,
+//										LocalDateTime data_termino
+										scanner = new Scanner(System.in);
+										Evento newEvento = new Evento();
+										
+										System.out.print("Nome do evento: ");
+										newEvento.setNome(scanner.nextLine());
+										
+										System.out.print("Descrição: ");
+										newEvento.setDescricao(scanner.nextLine());
+										
+										System.out.print("Data de início (dd/MM/yyyy HH:mm): ");
+										newEvento.setDataInicio(LocalDateTime.parse(scanner.nextLine(), formatterWithHour));
+										
+										System.out.print("Data de término (dd/MM/yyyy HH:mm): ");
+										newEvento.setDataInicio(LocalDateTime.parse(scanner.nextLine(), formatterWithHour));
 										break;
 									case 2:
 										// Editar evento

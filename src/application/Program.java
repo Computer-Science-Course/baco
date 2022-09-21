@@ -39,6 +39,7 @@ public class Program {
 		// Variável mocada para definir ADM
 		Adm adm = new Adm("123456", TipoDocumento.valueOf("CPF"), "usuario master", "123", true, null);
 		List<Usuario> adms;
+		String editAdm_numero_documento_old, adm_numero_documento, adm_nome;
 		
 		try {
 			// Se for ADM, vai entrar nesse menu
@@ -69,6 +70,32 @@ public class Program {
 											switch(option) {
 												case 1:
 													// Editar adm-perfil
+													// Editar informações do gestor
+													scanner = new Scanner(System.in);
+													System.out.print("Numero do documento do ADM a ser editado: ");
+													editAdm_numero_documento_old = scanner.nextLine();
+													System.out.print("Novo numero do documento: ");
+													String editAdm_numero_documento = scanner.nextLine();
+													
+													System.out.print("Novo tipo de documento (CPF, MATRICULA, RG): ");
+													String editAdm_tipo_documento = scanner.nextLine().toUpperCase();
+													
+													System.out.print("Novo nome completo do gestor: ");
+													String editAdm_nome = scanner.nextLine();
+													
+													Adm editedAdm = new Adm(
+															editAdm_numero_documento,
+															TipoDocumento.valueOf(editAdm_tipo_documento),
+															editAdm_nome,
+															null,
+															true,
+															null
+														);
+													usuarioDaoJDBC.editarUsuario(
+															editAdm_numero_documento_old,
+															editedAdm
+													);
+													adm = editedAdm;
 													break;
 												case 2:
 													// Editar adm-senha

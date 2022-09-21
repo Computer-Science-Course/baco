@@ -1,25 +1,28 @@
-package model.entities;
+package model.entities.evento;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import model.enums.TipoAtividade;
-
-public class Atividade {
+public class Evento {
 	
 	private Integer id;
+	private String nome;
 	private String titulo;
 	private String descricao;
-	private TipoAtividade tipoAtividade;
 	private LocalDateTime data_inicio;
 	private LocalDateTime data_termino;
-	private Double duracao;
-	private String nome_responsavel;
+	
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	public String getTitulo() {
 		return titulo;
@@ -33,12 +36,6 @@ public class Atividade {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public TipoAtividade getTipoAtividade() {
-		return tipoAtividade;
-	}
-	public void setTipoAtividade(TipoAtividade tipoAtividade) {
-		this.tipoAtividade = tipoAtividade;
-	}
 	public LocalDateTime getData_inicio() {
 		return data_inicio;
 	}
@@ -51,37 +48,20 @@ public class Atividade {
 	public void setData_termino(LocalDateTime data_termino) {
 		this.data_termino = data_termino;
 	}
-	public Double getDuracao() {
-		return duracao;
-	}
-	public void setDuracao(Double duracao) {
-		this.duracao = duracao;
-	}
-	public String getNome_responsavel() {
-		return nome_responsavel;
-	}
-	public void setNome_responsavel(String nome_responsavel) {
-		this.nome_responsavel = nome_responsavel;
-	}
-	
 	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
 		DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		
 		stringBuilder.append("Id: " + this.getId());
+		stringBuilder.append(", Nome: " + this.getNome());
 		stringBuilder.append(", Titulo: " + this.getTitulo());
 		stringBuilder.append(", Descrição: " + this.getDescricao());
-		stringBuilder.append(", Tipo de atividade: " + this.getTipoAtividade());
 		stringBuilder.append(", Data inicio: " + this.getData_inicio().format(formatacao));
 		stringBuilder.append(", Data termino: " + this.getData_termino().format(formatacao));
-		stringBuilder.append(", Druração:" + this.getDuracao());
-		stringBuilder.append(", Nome do responsável:" + this.getNome_responsavel());
 		
 		return stringBuilder.toString();
 	}
-	
-	
 	
 	
 

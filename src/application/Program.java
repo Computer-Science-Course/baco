@@ -331,8 +331,6 @@ public class Program {
 								switch(option) {
 									case 1:
 										// Criar evento
-//										String nome, String titulo, String descricao, LocalDateTime data_inicio,
-//										LocalDateTime data_termino
 										scanner = new Scanner(System.in);
 										Evento newEvento = new Evento();
 										
@@ -355,6 +353,28 @@ public class Program {
 										break;
 									case 2:
 										// Editar evento
+										scanner = new Scanner(System.in);
+										Evento editEvento = new Evento();
+										
+										System.out.print("Id do evento: ");
+										editEvento.setId(scanner.nextLine());
+										
+										System.out.print("Novo nome do evento: ");
+										editEvento.setNome(scanner.nextLine());
+										
+										System.out.print("Novo título: ");
+										editEvento.setTitulo(scanner.nextLine());
+										
+										System.out.print("Nova descrição: ");
+										editEvento.setDescricao(scanner.nextLine());
+										
+										System.out.print("Nova data de início (dd/MM/yyyy HH:mm): ");
+										editEvento.setDataInicio(LocalDateTime.parse(scanner.nextLine(), formatterWithHour));
+										
+										System.out.print("Nova data de término (dd/MM/yyyy HH:mm): ");
+										editEvento.setDataTermino(LocalDateTime.parse(scanner.nextLine(), formatterWithHour));
+										
+										eventoDaoJDBC.editarEvento(editEvento);
 										break;
 									case 3:
 										// Excluir evento

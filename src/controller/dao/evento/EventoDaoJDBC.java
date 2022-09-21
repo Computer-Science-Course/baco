@@ -64,6 +64,7 @@ public class EventoDaoJDBC implements EventoDaoInterface {
 			statement.setString(3, evento.getDescricao());
 			statement.setTimestamp(4, Timestamp.valueOf(evento.getDataInicio()));
 			statement.setTimestamp(5, Timestamp.valueOf(evento.getDataTermino()));
+			statement.setString(6, evento.getId());
 			statement.executeUpdate();
 
 		} catch (SQLException error) {
@@ -100,7 +101,7 @@ public class EventoDaoJDBC implements EventoDaoInterface {
 
 			while (rs.next()) {
 				Evento evento = new Evento();
-				evento.setId(rs.getInt("id"));
+				evento.setId(rs.getString("id"));
 				evento.setNome(rs.getString("nome"));
 				evento.setTitulo(rs.getString("titulo"));
 				evento.setDescricao(rs.getString("descricao"));
@@ -128,7 +129,7 @@ public class EventoDaoJDBC implements EventoDaoInterface {
 			rs = st.executeQuery();
 			if (rs.next()) {
 				Evento evento = new Evento();
-				evento.setId(rs.getInt("id"));
+				evento.setId(rs.getString("id"));
 				evento.setNome(rs.getString("nome"));
 				evento.setTitulo(rs.getString("titulo"));
 				evento.setDescricao(rs.getString("descricao"));

@@ -381,6 +381,10 @@ public class Program {
 										break;
 									case 4:
 										// Listar todos os eventos
+										List<Evento> eventos = eventoDaoJDBC.listarTodos();
+										for(Evento evento: eventos) {
+											System.out.println(evento);
+										}
 										break;
 									case 5:
 										// Listar por nome

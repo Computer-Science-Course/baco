@@ -12,11 +12,11 @@ import java.util.List;
 import model.entities.evento.Evento;
 import model.service.DbException;
 
-public class EventodaoJDBC implements EventoDaoInterface {
+public class EventoDaoJDBC implements EventoDaoInterface {
 
 	private Connection conn;
 
-	public EventodaoJDBC(Connection conn) {
+	public EventoDaoJDBC(Connection conn) {
 		this.conn = conn;
 	}
 
@@ -35,8 +35,8 @@ public class EventodaoJDBC implements EventoDaoInterface {
 				statement.setString(1, evento.getNome());
 				statement.setString(2, evento.getTitulo());
 				statement.setString(3, evento.getDescricao());
-				statement.setTimestamp(4, Timestamp.valueOf(evento.getData_inicio()));
-				statement.setTimestamp(5, Timestamp.valueOf(evento.getData_termino()));
+				statement.setTimestamp(4, Timestamp.valueOf(evento.getDataInicio()));
+				statement.setTimestamp(5, Timestamp.valueOf(evento.getDataTermino()));
 
 				statement.executeUpdate();
 
@@ -62,8 +62,8 @@ public class EventodaoJDBC implements EventoDaoInterface {
 			statement.setString(1, evento.getNome());
 			statement.setString(2, evento.getTitulo());
 			statement.setString(3, evento.getDescricao());
-			statement.setTimestamp(4, Timestamp.valueOf(evento.getData_inicio()));
-			statement.setTimestamp(5, Timestamp.valueOf(evento.getData_termino()));
+			statement.setTimestamp(4, Timestamp.valueOf(evento.getDataInicio()));
+			statement.setTimestamp(5, Timestamp.valueOf(evento.getDataTermino()));
 			statement.executeUpdate();
 
 		} catch (SQLException error) {
@@ -104,8 +104,8 @@ public class EventodaoJDBC implements EventoDaoInterface {
 				evento.setNome(rs.getString("nome"));
 				evento.setTitulo(rs.getString("titulo"));
 				evento.setDescricao(rs.getString("descricao"));
-				evento.setData_inicio(rs.getTimestamp("data_inicio").toLocalDateTime());
-				evento.setData_termino(rs.getTimestamp("data_inicio").toLocalDateTime());
+				evento.setDataInicio(rs.getTimestamp("data_inicio").toLocalDateTime());
+				evento.setDataTermino(rs.getTimestamp("data_inicio").toLocalDateTime());
 				eventos.add(evento);
 			}
 			return eventos;
@@ -125,7 +125,6 @@ public class EventodaoJDBC implements EventoDaoInterface {
 			st = conn.prepareStatement(
 					"SELECT * FROM evento " 
 					+ "WHERE nome LIKE '%" + nome + "%'");
-			st.setString(1, nome);
 			rs = st.executeQuery();
 			if (rs.next()) {
 				Evento evento = new Evento();
@@ -133,8 +132,8 @@ public class EventodaoJDBC implements EventoDaoInterface {
 				evento.setNome(rs.getString("nome"));
 				evento.setTitulo(rs.getString("titulo"));
 				evento.setDescricao(rs.getString("descricao"));
-				evento.setData_inicio(rs.getTimestamp("data_inicio").toLocalDateTime());
-				evento.setData_termino(rs.getTimestamp("data_inicio").toLocalDateTime());
+				evento.setDataInicio(rs.getTimestamp("data_inicio").toLocalDateTime());
+				evento.setDataTermino(rs.getTimestamp("data_inicio").toLocalDateTime());
 				eventos.add(evento);
 			}
 			return eventos;

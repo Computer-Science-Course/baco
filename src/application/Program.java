@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
+import controller.dao.evento.EventoDaoJDBC;
 import controller.dao.usuario.UsuarioDaoJDBC;
 import model.entities.evento.Evento;
 import model.entities.usuario.Adm;
@@ -22,13 +23,14 @@ public class Program {
 		Locale.setDefault(Locale.US);
 		Scanner scanner = new Scanner(System.in);
 		Integer option = 0;
+		Connection conn = DataBase.getConnection();
 		
 		// ------------ GESTOR ------------
 		String senha1 = "", senha2 = "";
 		String editGestor_numero_documento_old, gestor_numero_documento, gestor_nome;
 		List<Usuario> gestores;
+		EventoDaoJDBC eventoDaoJDBC = new EventoDaoJDBC(conn);
 		
-		Connection conn = DataBase.getConnection();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		DateTimeFormatter formatterWithHour = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		
@@ -337,6 +339,9 @@ public class Program {
 										System.out.print("Nome do evento: ");
 										newEvento.setNome(scanner.nextLine());
 										
+										System.out.print("Título: ");
+										newEvento.setTitulo(scanner.nextLine());
+										
 										System.out.print("Descrição: ");
 										newEvento.setDescricao(scanner.nextLine());
 										
@@ -344,7 +349,9 @@ public class Program {
 										newEvento.setDataInicio(LocalDateTime.parse(scanner.nextLine(), formatterWithHour));
 										
 										System.out.print("Data de término (dd/MM/yyyy HH:mm): ");
-										newEvento.setDataInicio(LocalDateTime.parse(scanner.nextLine(), formatterWithHour));
+										newEvento.setDataTermino(LocalDateTime.parse(scanner.nextLine(), formatterWithHour));
+										
+										eventoDaoJDBC.criarEvento(newEvento);
 										break;
 									case 2:
 										// Editar evento

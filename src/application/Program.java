@@ -36,6 +36,7 @@ public class Program {
 		// ------------ ADM ------------
 		// Variável mocada para definir se o usuário é ADM
 		Boolean isAdm = true;
+		// Variável mocada para definir ADM
 		Adm adm = new Adm("123456", TipoDocumento.valueOf("CPF"), "usuario master", "123", true, null);
 		List<Usuario> adms;
 		

@@ -1,6 +1,7 @@
 package model.entities.usuario;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import model.enums.TipoDocumento;
 
@@ -74,10 +75,20 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", numero_documento=" + numero_documento + ", tipo_documento=" + tipo_documento
-				+ ", nome_completo=" + nome_completo + ", senha=" + senha + ", isAdm=" + isAdm + ", ultimo_acesso="
-				+ ultimo_acesso + "]";
+		StringBuilder stringBuilder = new StringBuilder();
+		DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+		
+		stringBuilder.append("Id: " + this.getId());
+		stringBuilder.append(", Numero de documento: " + this.getNumeroDocumento());
+		stringBuilder.append(", Tipo de documento: " + this.getTipoDocumento());
+		stringBuilder.append(", Nome Completo: " + this.getNomeCompleto());
+		stringBuilder.append(", Senha: " + this.getSenha());
+		stringBuilder.append(", Adm: " + this.isAdm());
+		stringBuilder.append(", Último acesso: " + this.getUltimoAcesso().format(formatacao));
+		
+		return stringBuilder.toString();
 	}
+
 	
 	
 }

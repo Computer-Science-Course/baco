@@ -5,17 +5,27 @@ import java.time.format.DateTimeFormatter;
 
 public class Evento {
 	
-	private Integer id;
+	private String id;
 	private String nome;
 	private String titulo;
 	private String descricao;
 	private LocalDateTime data_inicio;
 	private LocalDateTime data_termino;
 	
-	public Integer getId() {
+	
+	
+	public Evento() {}
+	public Evento(String nome, String titulo, String descricao, LocalDateTime data_inicio, LocalDateTime data_termino) {
+		this.nome = nome;
+		this.titulo = titulo;
+		this.descricao = descricao;
+		this.data_inicio = data_inicio;
+		this.data_termino = data_termino;
+	}
+	public String getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getNome() {
@@ -36,16 +46,16 @@ public class Evento {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public LocalDateTime getData_inicio() {
+	public LocalDateTime getDataInicio() {
 		return data_inicio;
 	}
-	public void setData_inicio(LocalDateTime data_inicio) {
+	public void setDataInicio(LocalDateTime data_inicio) {
 		this.data_inicio = data_inicio;
 	}
-	public LocalDateTime getData_termino() {
+	public LocalDateTime getDataTermino() {
 		return data_termino;
 	}
-	public void setData_termino(LocalDateTime data_termino) {
+	public void setDataTermino(LocalDateTime data_termino) {
 		this.data_termino = data_termino;
 	}
 	@Override
@@ -57,8 +67,8 @@ public class Evento {
 		stringBuilder.append(", Nome: " + this.getNome());
 		stringBuilder.append(", Titulo: " + this.getTitulo());
 		stringBuilder.append(", Descrição: " + this.getDescricao());
-		stringBuilder.append(", Data inicio: " + this.getData_inicio().format(formatacao));
-		stringBuilder.append(", Data termino: " + this.getData_termino().format(formatacao));
+		stringBuilder.append(", Data inicio: " + this.getDataInicio().format(formatacao));
+		stringBuilder.append(", Data termino: " + this.getDataTermino().format(formatacao));
 		
 		return stringBuilder.toString();
 	}

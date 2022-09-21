@@ -7,8 +7,8 @@ use `database`;
 create table evento(
     id int primary key not null auto_increment,
     nome varchar(40) not null,
-    titulo varchar(30) not null,
-    descricao varchar(100) not null,
+    titulo varchar(256) not null,
+    descricao varchar(256) not null,
     data_inicio date not null,
     data_termino date not null
 );

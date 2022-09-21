@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
+import controller.dao.evento.EventoDaoJDBC;
 import controller.dao.usuario.UsuarioDaoJDBC;
+import model.entities.evento.Evento;
 import model.entities.usuario.Adm;
 import model.entities.usuario.Usuario;
 import model.enums.TipoDocumento;
@@ -21,13 +23,14 @@ public class Program {
 		Locale.setDefault(Locale.US);
 		Scanner scanner = new Scanner(System.in);
 		Integer option = 0;
+		Connection conn = DataBase.getConnection();
 		
 		// ------------ GESTOR ------------
 		String senha1 = "", senha2 = "";
 		String editGestor_numero_documento_old, gestor_numero_documento, gestor_nome;
 		List<Usuario> gestores;
+		EventoDaoJDBC eventoDaoJDBC = new EventoDaoJDBC(conn);
 		
-		Connection conn = DataBase.getConnection();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		DateTimeFormatter formatterWithHour = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		
@@ -35,7 +38,7 @@ public class Program {
 		
 		// ------------ ADM ------------
 		// Variável mocada para definir se o usuário é ADM
-		Boolean isAdm = true;
+		Boolean isAdm = false;
 		// Variável mocada para definir ADM
 		Adm adm = new Adm("123456", TipoDocumento.valueOf("CPF"), "usuario master", "123", true, null);
 		List<Usuario> adms;
@@ -95,10 +98,37 @@ public class Program {
 															editAdm_numero_documento_old,
 															editedAdm
 													);
+													editedAdm.setSenha(adm.getSenha());
 													adm = editedAdm;
 													break;
 												case 2:
 													// Editar adm-senha
+													scanner = new Scanner(System.in);
+													System.out.print("Senha antiga: ");
+													senha1 = scanner.nextLine();
+													if(senha1.equals(adm.getSenha())) {
+														do {
+															System.out.print("Senha: ");
+															senha1 = scanner.nextLine();
+															System.out.print("Senha novamente: ");
+															senha2 = scanner.nextLine();
+														}while(!senha1.equals(senha2));
+														
+														usuarioDaoJDBC.editarSenhaUsuario(
+																adm.getNumeroDocumento(),
+																new Usuario(
+																		null,
+																		null,
+																		null,
+																		senha1,
+																		false,
+																		null
+																		)
+																);
+														adm.setSenha(senha1);
+													}else {
+														System.out.println("[Senha inválida!]");
+													}
 													break;
 												case 3:
 													break;
@@ -301,9 +331,50 @@ public class Program {
 								switch(option) {
 									case 1:
 										// Criar evento
+										scanner = new Scanner(System.in);
+										Evento newEvento = new Evento();
+										
+										System.out.print("Nome do evento: ");
+										newEvento.setNome(scanner.nextLine());
+										
+										System.out.print("Título: ");
+										newEvento.setTitulo(scanner.nextLine());
+										
+										System.out.print("Descrição: ");
+										newEvento.setDescricao(scanner.nextLine());
+										
+										System.out.print("Data de início (dd/MM/yyyy HH:mm): ");
+										newEvento.setDataInicio(LocalDateTime.parse(scanner.nextLine(), formatterWithHour));
+										
+										System.out.print("Data de término (dd/MM/yyyy HH:mm): ");
+										newEvento.setDataTermino(LocalDateTime.parse(scanner.nextLine(), formatterWithHour));
+										
+										eventoDaoJDBC.criarEvento(newEvento);
 										break;
 									case 2:
 										// Editar evento
+										scanner = new Scanner(System.in);
+										Evento editEvento = new Evento();
+										
+										System.out.print("Id do evento: ");
+										editEvento.setId(scanner.nextLine());
+										
+										System.out.print("Novo nome do evento: ");
+										editEvento.setNome(scanner.nextLine());
+										
+										System.out.print("Novo título: ");
+										editEvento.setTitulo(scanner.nextLine());
+										
+										System.out.print("Nova descrição: ");
+										editEvento.setDescricao(scanner.nextLine());
+										
+										System.out.print("Nova data de início (dd/MM/yyyy HH:mm): ");
+										editEvento.setDataInicio(LocalDateTime.parse(scanner.nextLine(), formatterWithHour));
+										
+										System.out.print("Nova data de término (dd/MM/yyyy HH:mm): ");
+										editEvento.setDataTermino(LocalDateTime.parse(scanner.nextLine(), formatterWithHour));
+										
+										eventoDaoJDBC.editarEvento(editEvento);
 										break;
 									case 3:
 										// Excluir evento

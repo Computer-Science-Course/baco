@@ -9,8 +9,8 @@ create table evento(
     nome varchar(40) not null,
     titulo varchar(256) not null,
     descricao varchar(256) not null,
-    data_inicio date not null,
-    data_termino date not null
+    data_inicio datetime not null,
+    data_termino datetime not null
 );
 
 create table participante(

@@ -106,7 +106,7 @@ public class EventoDaoJDBC implements EventoDaoInterface {
 				evento.setTitulo(rs.getString("titulo"));
 				evento.setDescricao(rs.getString("descricao"));
 				evento.setDataInicio(rs.getTimestamp("data_inicio").toLocalDateTime());
-				evento.setDataTermino(rs.getTimestamp("data_inicio").toLocalDateTime());
+				evento.setDataTermino(rs.getTimestamp("data_termino").toLocalDateTime());
 				eventos.add(evento);
 			}
 			return eventos;
@@ -134,7 +134,7 @@ public class EventoDaoJDBC implements EventoDaoInterface {
 				evento.setTitulo(rs.getString("titulo"));
 				evento.setDescricao(rs.getString("descricao"));
 				evento.setDataInicio(rs.getTimestamp("data_inicio").toLocalDateTime());
-				evento.setDataTermino(rs.getTimestamp("data_inicio").toLocalDateTime());
+				evento.setDataTermino(rs.getTimestamp("data_termino").toLocalDateTime());
 				eventos.add(evento);
 			}
 			return eventos;

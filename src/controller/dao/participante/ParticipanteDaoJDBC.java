@@ -121,8 +121,34 @@ public class ParticipanteDaoJDBC implements ParticipanteDaoInterface {
 	
 	@Override
 	public List<Participante> listarPorDocumento(String numero_documento) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Participante> participantes = new ArrayList<>();
+		
+		try {
+			String query = "SELECT * FROM participante " +
+							"WHERE numero_documento = " + numero_documento;
+			
+			Statement statement = conn.createStatement();
+			
+			ResultSet result = statement.executeQuery(query);
+			
+			while(result.next()) {
+				
+				Participante participante = new Participante(
+						result.getString("nome"),
+						result.getString("numero_documento"),
+						TipoDocumento.valueOf(result.getString("numero_documento"))
+				);
+				
+				participante.setId(result.getInt("id"));
+				
+				participantes.add(participante);
+			}
+			
+			return participantes;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
 	}
 	
 	@Override

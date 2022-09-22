@@ -379,6 +379,11 @@ public class Program {
 										break;
 									case 3:
 										// Excluir evento
+										scanner = new Scanner(System.in);
+
+										System.out.print("Id do evento: ");
+										Integer id_deleteEvent = scanner.nextInt();
+										eventoDaoJDBC.excluirEvento(id_deleteEvent);
 										break;
 									case 4:
 										// Listar todos os eventos
@@ -388,6 +393,7 @@ public class Program {
 										}
 										break;
 									case 5:
+										// Listar por nome
 										scanner = new Scanner(System.in);
 
 										System.out.print("Nome: ");
@@ -396,7 +402,6 @@ public class Program {
 										for(Evento evento: eventos) {
 											System.out.println(evento);
 										}
-										// Listar por nome
 										break;
 									case 6:
 										// Sair do menu

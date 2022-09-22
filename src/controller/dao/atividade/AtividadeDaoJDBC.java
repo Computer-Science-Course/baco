@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import controller.dao.evento.EventoDaoJDBC;
 import model.entities.atividade.Atividade;
 import model.entities.evento.Evento;
 import model.enums.TipoAtividade;
@@ -44,10 +45,10 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface{
 				statement.setString(1, atividade.getTitulo());
 				statement.setString(2, atividade.getDescricao());
 				statement.setString(3, atividade.getTipoAtividade().name());
-				statement.setTimestamp(4, Timestamp.valueOf(atividade.getData_inicio()));
-				statement.setTimestamp(5, Timestamp.valueOf(atividade.getData_termino()));
+				statement.setTimestamp(4, Timestamp.valueOf(atividade.getDataInicio()));
+				statement.setTimestamp(5, Timestamp.valueOf(atividade.getDataTermino()));
 				statement.setDouble(6, atividade.getDuracao());
-				statement.setString(7, atividade.getNome_responsavel());
+				statement.setString(7, atividade.getNomeResponsavel());
 				statement.setInt(8, atividade.getEvento().getId());
 
 				statement.executeUpdate();
@@ -83,10 +84,10 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface{
 			statement.setString(1, atividade.getTitulo());
 			statement.setString(2, atividade.getDescricao());
 			statement.setString(3, atividade.getTipoAtividade().name());
-			statement.setTimestamp(4, Timestamp.valueOf(atividade.getData_inicio()));
-			statement.setTimestamp(5, Timestamp.valueOf(atividade.getData_termino()));			
+			statement.setTimestamp(4, Timestamp.valueOf(atividade.getDataInicio()));
+			statement.setTimestamp(5, Timestamp.valueOf(atividade.getDataTermino()));			
 			statement.setDouble(6, atividade.getDuracao());
-			statement.setString(7, atividade.getNome_responsavel());
+			statement.setString(7, atividade.getNomeResponsavel());
 			statement.setInt(8, atividade.getEvento().getId());
 			statement.setInt(9, atividade.getId());
 			statement.executeUpdate();			
@@ -118,8 +119,8 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface{
 		atividade.setTitulo(rs.getString("titulo"));
 		atividade.setDescricao(rs.getString("descricao"));
 		atividade.setTipoAtividade(TipoAtividade.valueOf(rs.getString("tipo")));
-		atividade.setData_inicio(rs.getTimestamp("data_inicio").toLocalDateTime());
-		atividade.setData_termino(rs.getTimestamp("data_termino").toLocalDateTime());
+		atividade.setDataInicio(rs.getTimestamp("data_inicio").toLocalDateTime());
+		atividade.setDataTermino(rs.getTimestamp("data_termino").toLocalDateTime());
 		atividade.setEvento(evento);
 		return atividade;
 	}
@@ -201,5 +202,38 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface{
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());
 		}
-}
+	}
+	
+	@Override
+	public Atividade listarTodosPorId(Integer id) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		EventoDaoJDBC eventoDaoJDBC = new EventoDaoJDBC(conn);
+		
+		try {
+			st = conn.prepareStatement(
+					"SELECT * FROM atividade " 
+					+ "WHERE nome = " + id);
+			rs = st.executeQuery();
+			
+			while (rs.next()) {
+				Atividade atividade = new Atividade();
+				
+				atividade.setId(id);
+				atividade.setTitulo(rs.getString("titulo"));
+				atividade.setDescricao(rs.getString("descricao"));
+				atividade.setTipoAtividade(TipoAtividade.valueOf(rs.getString("tipo")));
+				atividade.setDataInicio(rs.getTimestamp("data_inicio").toLocalDateTime());
+				atividade.setDataTermino(rs.getTimestamp("data_termino").toLocalDateTime());
+				atividade.setDuracao(rs.getDouble("duracao"));
+				atividade.setNomeResponsavel(null);
+				atividade.setEvento(eventoDaoJDBC.listarTodosPorId(rs.getInt("id_evento")));
+				return atividade;
+			}
+			return null;
+			
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} 
+	}
 }

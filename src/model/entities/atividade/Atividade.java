@@ -60,16 +60,16 @@ public class Atividade {
 	public void setTipoAtividade(TipoAtividade tipoAtividade) {
 		this.tipoAtividade = tipoAtividade;
 	}
-	public LocalDateTime getData_inicio() {
+	public LocalDateTime getDataInicio() {
 		return data_inicio;
 	}
-	public void setData_inicio(LocalDateTime data_inicio) {
+	public void setDataInicio(LocalDateTime data_inicio) {
 		this.data_inicio = data_inicio;
 	}
-	public LocalDateTime getData_termino() {
+	public LocalDateTime getDataTermino() {
 		return data_termino;
 	}
-	public void setData_termino(LocalDateTime data_termino) {
+	public void setDataTermino(LocalDateTime data_termino) {
 		this.data_termino = data_termino;
 	}
 	public Double getDuracao() {
@@ -78,10 +78,10 @@ public class Atividade {
 	public void setDuracao(Double duracao) {
 		this.duracao = duracao;
 	}
-	public String getNome_responsavel() {
+	public String getNomeResponsavel() {
 		return nome_responsavel;
 	}
-	public void setNome_responsavel(String nome_responsavel) {
+	public void setNomeResponsavel(String nome_responsavel) {
 		this.nome_responsavel = nome_responsavel;
 	}
 	
@@ -102,10 +102,10 @@ public class Atividade {
 		stringBuilder.append(", Titulo: " + this.getTitulo());
 		stringBuilder.append(", Descrição: " + this.getDescricao());
 		stringBuilder.append(", Tipo de atividade: " + this.getTipoAtividade());
-		stringBuilder.append(", Data inicio: " + this.getData_inicio().format(formatacao));
-		stringBuilder.append(", Data termino: " + this.getData_termino().format(formatacao));
+		stringBuilder.append(", Data inicio: " + this.getDataInicio().format(formatacao));
+		stringBuilder.append(", Data termino: " + this.getDataTermino().format(formatacao));
 		stringBuilder.append(", Druração:" + this.getDuracao());
-		stringBuilder.append(", Nome do responsável:" + this.getNome_responsavel());
+		stringBuilder.append(", Nome do responsável:" + this.getNomeResponsavel());
 		stringBuilder.append(", " + this.getEvento());
 		
 		return stringBuilder.toString();

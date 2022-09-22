@@ -551,6 +551,16 @@ public class Program {
 													break;
 												case 3:
 													// Listar participantes por nome
+													scanner = new Scanner(System.in);
+													participante = new Participante();
+													System.out.println("Nome: ");
+													participante.setNome(scanner.nextLine());
+													
+													for(Participante one_participante: 
+														participanteDaoJDBC.listarPorNome(participante.getNome())
+													) {
+														System.out.println(one_participante);
+													}
 													break;
 												case 4:
 													// Sair do menu

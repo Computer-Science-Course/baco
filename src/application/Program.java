@@ -9,9 +9,11 @@ import java.util.Scanner;
 
 import controller.dao.atividade.AtividadeDaoJDBC;
 import controller.dao.evento.EventoDaoJDBC;
+import controller.dao.participante.ParticipanteDaoJDBC;
 import controller.dao.usuario.UsuarioDaoJDBC;
 import model.entities.atividade.Atividade;
 import model.entities.evento.Evento;
+import model.entities.participante.Participante;
 import model.entities.usuario.Adm;
 import model.entities.usuario.Usuario;
 import model.enums.TipoAtividade;
@@ -35,12 +37,14 @@ public class Program {
 		List<Evento> eventos;
 		List<Atividade> atividades;
 		EventoDaoJDBC eventoDaoJDBC = new EventoDaoJDBC(conn);
+		Participante participante = new Participante();
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		DateTimeFormatter formatterWithHour = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		
 		UsuarioDaoJDBC usuarioDaoJDBC = new UsuarioDaoJDBC(conn);
 		AtividadeDaoJDBC atividadeDaoJDBC = new AtividadeDaoJDBC(conn);
+		ParticipanteDaoJDBC participanteDaoJDBC = new ParticipanteDaoJDBC(conn);
 		
 		// ------------ ADM ------------
 		// Variável mocada para definir se o usuário é ADM
@@ -501,17 +505,15 @@ public class Program {
 										// Cadastrar participante INCOMPLETO!!!
 										scanner = new Scanner(System.in);
 										System.out.print("Nome do Participante: ");
-										String newParticipante_nome = scanner.nextLine();
+										participante.setNome(scanner.nextLine());
 										
 										System.out.print("Numero do documento: ");
-										String newParticipante_numero_documento = scanner.nextLine();
+										participante.setNumeroDocumento(scanner.nextLine());
 																				
 										System.out.print("Tipo de documento (CPF, MATRICULA, RG): ");
-										String newParticipante_tipo_documento = scanner.nextLine().toUpperCase();
+										participante.setTipoDocumento(TipoDocumento.valueOf(scanner.nextLine().toUpperCase()));
 										
-//										newParticipante = new Participante(null, descricao, preco);
-//										participanteDao.CriarParticipante(newParticipante);
-//										System.out.println("Cadrastado com sucesso!");
+										participanteDaoJDBC.criarParticipante(participante);
 										
 										break;
 									case 2:

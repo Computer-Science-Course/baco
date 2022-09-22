@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controller.dao.evento.EventoDaoJDBC;
+import controller.dao.genericDb.GenericDbJDBC;
 import model.entities.atividade.Atividade;
 import model.entities.participante.Participante;
 import model.entities.usuario.Usuario;
@@ -79,7 +80,9 @@ public class ParticipanteDaoJDBC implements ParticipanteDaoInterface {
 
 	@Override
 	public void excluirParticipante(Integer id) {
-		// TODO Auto-generated method stub
+		GenericDbJDBC genericDbJDBC = new GenericDbJDBC(conn);
+		
+		genericDbJDBC.deleteWhere("usuario", "id", id.toString());
 		
 	}
 	

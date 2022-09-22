@@ -3,6 +3,7 @@ package model.entities.atividade;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import model.entities.evento.Evento;
 import model.enums.TipoAtividade;
 
 public class Atividade {
@@ -16,6 +17,25 @@ public class Atividade {
 	private Double duracao;
 	private String nome_responsavel;
 	
+	private Evento evento;
+
+	public Atividade() {
+		
+	}
+	
+	public Atividade(Integer id, String titulo, String descricao, TipoAtividade tipoAtividade,
+			LocalDateTime data_inicio, LocalDateTime data_termino, Double duracao, String nome_responsavel,
+			Evento evento) {
+		this.id = id;
+		this.titulo = titulo;
+		this.descricao = descricao;
+		this.tipoAtividade = tipoAtividade;
+		this.data_inicio = data_inicio;
+		this.data_termino = data_termino;
+		this.duracao = duracao;
+		this.nome_responsavel = nome_responsavel;
+		this.setEvento(evento);
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -65,6 +85,14 @@ public class Atividade {
 		this.nome_responsavel = nome_responsavel;
 	}
 	
+	public Evento getEvento() {
+		return evento;
+	}
+
+	public void setEvento(Evento evento) {
+		this.evento = evento;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
@@ -78,9 +106,12 @@ public class Atividade {
 		stringBuilder.append(", Data termino: " + this.getData_termino().format(formatacao));
 		stringBuilder.append(", Druração:" + this.getDuracao());
 		stringBuilder.append(", Nome do responsável:" + this.getNome_responsavel());
+		stringBuilder.append(", " + this.getEvento());
 		
 		return stringBuilder.toString();
 	}
+
+	
 	
 	
 	

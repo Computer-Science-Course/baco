@@ -15,7 +15,8 @@ public class Evento {
 	
 	
 	public Evento() {}
-	public Evento(String nome, String titulo, String descricao, LocalDateTime data_inicio, LocalDateTime data_termino) {
+	public Evento(Integer id, String nome, String titulo, String descricao, LocalDateTime data_inicio, LocalDateTime data_termino) {
+		this.id = id;
 		this.nome = nome;
 		this.titulo = titulo;
 		this.descricao = descricao;

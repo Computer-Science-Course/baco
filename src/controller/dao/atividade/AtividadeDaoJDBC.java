@@ -50,12 +50,23 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface{
 				statement.setString(7, atividade.getNome_responsavel());
 				statement.setInt(8, atividade.getEvento().getId());
 
-				statement.executeUpdate();
+				int rowsAffected = statement.executeUpdate();
 				
+				if (rowsAffected > 0) {
+					ResultSet rs = statement.getGeneratedKeys();
+					if (rs.next()) {
+						int id = rs.getInt(1);
+						atividade.setId(id);
+					}
+				}
+				else {
+					throw new DbException("Unexpected error! No rows affected!");
+				}
 			}
-			catch (SQLException error) {
-				throw new DbException(error.getMessage());
-			}
+				
+				catch (SQLException e) {
+					throw new DbException(e.getMessage());
+				}
 		} else {
 			System.out.println("[JÁ EXISTE UMA ATIVIDADE COM ESSE NOME, SEJA MAIS CRIATIVO!]");
 		}
@@ -171,14 +182,14 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface{
 	}
 
 	@Override
-	public List<Atividade> listarTodosPorNome(String nome) {
+	public List<Atividade> listarTodosPorNome(String titulo) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		
 		try {
 			st = conn.prepareStatement(
 					"SELECT * FROM atividade " 
-					+ "WHERE nome LIKE '%" + nome + "%'");
+					+ "WHERE titulo LIKE '%" + titulo + "%'");
 			rs = st.executeQuery();
 			
 			List<Atividade> atividades = new ArrayList<>();

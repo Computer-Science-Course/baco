@@ -45,11 +45,10 @@ public class InscricaoDaoJDBC implements InscricaoDaoInterface{
 							participante,
 							atividade,
 							result.getBoolean("checkin")
-						)	
+						)
 				);
 				
 			}
-			
 			return null;
 		}
 		catch (SQLException e) {

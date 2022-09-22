@@ -25,17 +25,44 @@ public class ParticipanteDaoJDBC implements ParticipanteDaoInterface {
 	}
 
 	@Override
-	public void editarParticipante(String numero_documento, Usuario usuario) {
+	public void criarParticipante(Participante participante) {
+		PreparedStatement statement = null;
+		
+		try {
+			String query = "INSERT INTO participante " +
+					"(nome, numero_documento, tipo_documento) " +
+					"VALUES " +
+					"(?, ?, ?)";
+			
+			statement = conn.prepareStatement(
+				query, 
+				Statement.RETURN_GENERATED_KEYS
+			);
+
+			statement.setString(1, participante.getNome());
+			statement.setString(2, participante.getNumeroDocumento());
+			statement.setString(3, participante.getTipoDocumento().name());
+
+			statement.executeUpdate();		
+		}
+		catch (SQLException error) {
+			throw new DbException(error.getMessage());
+		}
+		
+	}
+
+	@Override
+	public void editarParticipante(Integer Id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void excluirParticipante(String numero_documento, Usuario usuario) {
+	public void excluirParticipante(Integer id) {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
 	public List<Participante> listarTodos() {
 		// TODO Auto-generated method stub

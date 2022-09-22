@@ -6,12 +6,11 @@ import model.entities.participante.Participante;
 import model.entities.usuario.Usuario;
 
 public interface ParticipanteDaoInterface {
-	void editarParticipante(String numero_documento, Usuario usuario);
-	void excluirParticipante(String numero_documento, Usuario usuario);
+	void criarParticipante(Participante participante);
+	void editarParticipante(Integer Id);
+	void excluirParticipante(Integer id);
 	List<Participante> listarTodos();
 	List<Participante> listarPorDocumento(String numero_documento);
 	List<Participante> listarPorNome(String nome);
 	Participante listarPorId(Integer id);
-	
-	
 }

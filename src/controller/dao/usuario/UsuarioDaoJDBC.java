@@ -55,7 +55,6 @@ public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 		} else {
 			System.out.println("[JÁ EXISTE UM USÁRIO COM ESSE DOCUMENTO]");
 		}
-		
 	}
 	
 	@Override

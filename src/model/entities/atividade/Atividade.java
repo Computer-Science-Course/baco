@@ -2,6 +2,7 @@ package model.entities.atividade;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 import model.entities.evento.Evento;
 import model.enums.TipoAtividade;
@@ -93,6 +94,32 @@ public class Atividade {
 		this.evento = evento;
 	}
 	
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Atividade other = (Atividade) obj;
+		return Objects.equals(data_inicio, other.data_inicio) && Objects.equals(data_termino, other.data_termino)
+				&& Objects.equals(descricao, other.descricao) && Objects.equals(duracao, other.duracao)
+				&& Objects.equals(evento, other.evento) && Objects.equals(id, other.id)
+				&& Objects.equals(nome_responsavel, other.nome_responsavel) && tipoAtividade == other.tipoAtividade
+				&& Objects.equals(titulo, other.titulo);
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();

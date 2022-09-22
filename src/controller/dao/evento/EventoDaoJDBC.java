@@ -9,7 +9,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.entities.atividade.Atividade;
 import model.entities.evento.Evento;
+import model.enums.TipoAtividade;
 import model.service.DbException;
 
 public class EventoDaoJDBC implements EventoDaoInterface {
@@ -114,6 +116,32 @@ public class EventoDaoJDBC implements EventoDaoInterface {
 			throw new DbException(e.getMessage());
 		}
 
+	}
+	
+	@Override
+	public Evento listarTodosPorId(Integer id) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		
+		try {
+			st = conn.prepareStatement(
+					"SELECT * FROM evento " 
+					+ "WHERE id = " + id);
+			rs = st.executeQuery();
+			while (rs.next()) {
+				Evento evento = new Evento();
+				evento.setId(rs.getInt("id"));
+				evento.setNome(rs.getString("nome"));
+				evento.setTitulo(rs.getString("titulo"));
+				evento.setDescricao(rs.getString("descricao"));
+				evento.setDataInicio(rs.getTimestamp("data_inicio").toLocalDateTime());
+				evento.setDataTermino(rs.getTimestamp("data_termino").toLocalDateTime());
+				return evento;
+			}
+			return null;
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
 	}
 
 	@Override

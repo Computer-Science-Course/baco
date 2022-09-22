@@ -12,5 +12,6 @@ public interface EventoDaoInterface {
 	void excluirEvento(Integer id);
 	List<Evento> listarTodos();	
 	List<Evento> listarTodosPorNome(String nome);
+	Evento listarTodosPorId(Integer id);
 
 }

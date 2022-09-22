@@ -11,5 +11,5 @@ public interface AtividadeDaoInterface {
 	void excluirAtividade(Integer id);
 	List<Atividade> listarTodos();
 	List<Atividade> listarTodosPorNome(String nome);
-	
+	Atividade listarTodosPorId(Integer id);
 }

@@ -7,11 +7,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
+import controller.dao.atividade.AtividadeDaoJDBC;
 import controller.dao.evento.EventoDaoJDBC;
 import controller.dao.usuario.UsuarioDaoJDBC;
+import model.entities.atividade.Atividade;
 import model.entities.evento.Evento;
 import model.entities.usuario.Adm;
 import model.entities.usuario.Usuario;
+import model.enums.TipoAtividade;
 import model.enums.TipoDocumento;
 import model.service.DataBase;
 import view.UI.MenuAdm;
@@ -30,12 +33,14 @@ public class Program {
 		String editGestor_numero_documento_old, gestor_numero_documento, gestor_nome;
 		List<Usuario> gestores;
 		List<Evento> eventos;
+		List<Atividade> atividades;
 		EventoDaoJDBC eventoDaoJDBC = new EventoDaoJDBC(conn);
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		DateTimeFormatter formatterWithHour = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		
 		UsuarioDaoJDBC usuarioDaoJDBC = new UsuarioDaoJDBC(conn);
+		AtividadeDaoJDBC atividadeDaoJDBC = new AtividadeDaoJDBC(conn);
 		
 		// ------------ ADM ------------
 		// Variável mocada para definir se o usuário é ADM
@@ -421,6 +426,39 @@ public class Program {
 								switch(option) {
 									case 1:
 										// Criar atividade
+										Atividade newAtividade = new Atividade();
+										
+										scanner = new Scanner(System.in);
+										System.out.print("Titulo da atividade: ");
+										String titulo = scanner.nextLine();
+
+										System.out.print("Descrição: ");
+										String descricao = scanner.nextLine();
+
+										System.out.print("Tipo de Atividade (OFICINA, WORKSHOP): ");
+										TipoAtividade tipo = TipoAtividade.valueOf(scanner.next());
+										
+										scanner = new Scanner(System.in);
+										System.out.print("Data de início (dd/MM/yyyy HH:mm): ");
+										LocalDateTime data_inicio = LocalDateTime.parse(scanner.nextLine(), formatterWithHour);
+										
+										System.out.print("Data de término (dd/MM/yyyy HH:mm): ");
+										LocalDateTime data_termino = LocalDateTime.parse(scanner.nextLine(), formatterWithHour);
+
+										System.out.print("Duracao: ");
+										Double duracao = scanner.nextDouble();
+										
+										scanner = new Scanner(System.in);
+										System.out.print("Nome do responsavel: ");
+										String nome = scanner.nextLine();
+										
+										System.out.print("Digite o ID do evento que ele pertence: ");
+										int id_evento = scanner.nextInt();
+										
+										Evento newEvento = new Evento(id_evento, null, null, null, null, null);
+										newAtividade = new Atividade(null, titulo, descricao, tipo, data_inicio, data_termino, duracao, nome, newEvento);
+										atividadeDaoJDBC.criarAtividade(newAtividade);
+										System.out.println("Cadrastado com sucesso!");
 										break;
 									case 2:
 										// Check-in em atividade
@@ -436,6 +474,10 @@ public class Program {
 										break;
 									case 6:
 										// Listar todas as atividades
+										atividades = atividadeDaoJDBC.listarTodos();
+										for(Atividade atividade: atividades) {
+											System.out.println(atividade);
+										}
 										break;
 									case 7:
 										// Listar atividades por nome

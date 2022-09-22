@@ -153,8 +153,34 @@ public class ParticipanteDaoJDBC implements ParticipanteDaoInterface {
 	
 	@Override
 	public List<Participante> listarPorNome(String nome) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Participante> participantes = new ArrayList<>();
+		
+		try {
+			String query = "SELECT * FROM participante " +
+							"WHERE nome LIKE '%" + nome + "%'";
+			
+			Statement statement = conn.createStatement();
+			
+			ResultSet result = statement.executeQuery(query);
+			
+			while(result.next()) {
+				
+				Participante participante = new Participante(
+						result.getString("nome"),
+						result.getString("numero_documento"),
+						TipoDocumento.valueOf(result.getString("numero_documento"))
+				);
+				
+				participante.setId(result.getInt("id"));
+				
+				participantes.add(participante);
+			}
+			
+			return participantes;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
 	}
 
 	@Override

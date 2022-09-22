@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,8 +90,33 @@ public class ParticipanteDaoJDBC implements ParticipanteDaoInterface {
 	
 	@Override
 	public List<Participante> listarTodos() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Participante> participantes = new ArrayList<>();
+				
+		try {
+			String query = "SELECT * FROM participante";
+			
+			Statement statement = conn.createStatement();
+			
+			ResultSet result = statement.executeQuery(query);
+			
+			while(result.next()) {
+				
+				Participante participante = new Participante(
+						result.getString("nome"),
+						result.getString("numero_documento"),
+						TipoDocumento.valueOf(result.getString("numero_documento"))
+				);
+				
+				participante.setId(result.getInt("id"));
+				
+				participantes.add(participante);
+			}
+			
+			return participantes;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
 	}
 	
 	@Override

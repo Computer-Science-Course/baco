@@ -115,13 +115,8 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface {
 		atividade.setTitulo(rs.getString("titulo_atividade"));
 		atividade.setDescricao(rs.getString("descricao_atividade"));
 		atividade.setTipoAtividade(TipoAtividade.valueOf(rs.getString("tipo")));
-<<<<<<< HEAD
-		atividade.setDataInicio(rs.getTimestamp("data_inicio").toLocalDateTime());
-		atividade.setDataTermino(rs.getTimestamp("data_termino").toLocalDateTime());
-=======
-		atividade.setData_inicio(rs.getTimestamp("data_inicio_atividade").toLocalDateTime());
-		atividade.setData_termino(rs.getTimestamp("data_termino_atividade").toLocalDateTime());
->>>>>>> d1714ca7f302d7098b6bf6399eb5a9323359793f
+		atividade.setDataInicio(rs.getTimestamp("data_inicio_atividade").toLocalDateTime());
+		atividade.setDataTermino(rs.getTimestamp("data_termino_atividade").toLocalDateTime());
 		atividade.setDuracao(rs.getDouble("duracao"));
 		atividade.setNomeResponsavel(rs.getString("nome_responsavel"));
 		atividade.setEvento(evento);
@@ -191,8 +186,8 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface {
 				atividade.setTitulo(rs.getString("titulo"));
 				atividade.setDescricao(rs.getString("descricao"));
 				atividade.setTipoAtividade(TipoAtividade.valueOf(rs.getString("tipo")));
-				atividade.setDataInicio(rs.getTimestamp("data_inicio").toLocalDateTime());
-				atividade.setDataTermino(rs.getTimestamp("data_termino").toLocalDateTime());
+				atividade.setDataInicio(rs.getTimestamp("data_inicio_atividade").toLocalDateTime());
+				atividade.setDataTermino(rs.getTimestamp("data_termino_atividade").toLocalDateTime());
 				atividade.setDuracao(rs.getDouble("duracao"));
 				atividade.setNomeResponsavel(null);
 				atividade.setEvento(eventoDaoJDBC.listarTodosPorId(rs.getInt("id_evento")));

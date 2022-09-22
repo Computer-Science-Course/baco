@@ -38,5 +38,16 @@ public class Participante {
 		this.tipo_documento = tipo_documento;
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder stringBuilder = new StringBuilder();
+		
+		stringBuilder.append(", Nome: " + this.getNome());
+		stringBuilder.append(", Numero Documento: " + this.getNumeroDocumento());
+		stringBuilder.append(", Descrição: " + this.getTipoDocumento());
+		
+		return stringBuilder.toString();
+	}
+	
 	
 }

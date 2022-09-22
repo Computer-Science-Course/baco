@@ -530,12 +530,24 @@ public class Program {
 											switch(option) {
 												case 1:
 													// Listar todos participantes
-													for(Participante one_participante: participanteDaoJDBC.listarTodos()) {
+													for(Participante one_participante:
+															participanteDaoJDBC.listarTodos()
+														) {
 														System.out.println(one_participante);
 													}
 													break;
 												case 2:
 													// Listar participante por número de documento
+													scanner = new Scanner(System.in);
+													participante = new Participante();
+													System.out.println("Numero de acesso: ");
+													participante.setNumeroDocumento(scanner.nextLine());
+													
+													for(Participante one_participante: 
+														participanteDaoJDBC.listarPorDocumento(participante.getNumeroDocumento())
+													) {
+														System.out.println(one_participante);
+													}
 													break;
 												case 3:
 													// Listar participantes por nome

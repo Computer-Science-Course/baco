@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Evento {
 	
-	private String id;
+	private Integer id;
 	private String nome;
 	private String titulo;
 	private String descricao;
@@ -22,10 +22,10 @@ public class Evento {
 		this.data_inicio = data_inicio;
 		this.data_termino = data_termino;
 	}
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getNome() {

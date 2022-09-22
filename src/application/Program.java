@@ -358,7 +358,7 @@ public class Program {
 										Evento editEvento = new Evento();
 										
 										System.out.print("Id do evento: ");
-										editEvento.setId(scanner.nextLine());
+										editEvento.setId(scanner.nextInt());
 										
 										System.out.print("Novo nome do evento: ");
 										editEvento.setNome(scanner.nextLine());

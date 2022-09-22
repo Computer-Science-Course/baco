@@ -54,9 +54,8 @@ public class Participante {
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
 		
-		stringBuilder.append(", Nome: " + this.getNome());
-		stringBuilder.append(", Numero Documento: " + this.getNumeroDocumento());
-		stringBuilder.append(", Descrição: " + this.getTipoDocumento());
+		stringBuilder.append("Nome: " + this.getNome());
+		stringBuilder.append(", " + this.getTipoDocumento() + ": " + this.getNumeroDocumento());
 		
 		return stringBuilder.toString();
 	}

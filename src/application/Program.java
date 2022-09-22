@@ -530,6 +530,9 @@ public class Program {
 											switch(option) {
 												case 1:
 													// Listar todos participantes
+													for(Participante one_participante: participanteDaoJDBC.listarTodos()) {
+														System.out.println(one_participante);
+													}
 													break;
 												case 2:
 													// Listar participante por número de documento

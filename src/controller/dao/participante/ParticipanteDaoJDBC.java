@@ -104,7 +104,7 @@ public class ParticipanteDaoJDBC implements ParticipanteDaoInterface {
 				Participante participante = new Participante(
 						result.getString("nome"),
 						result.getString("numero_documento"),
-						TipoDocumento.valueOf(result.getString("numero_documento"))
+						TipoDocumento.valueOf(result.getString("tipo_documento"))
 				);
 				
 				participante.setId(result.getInt("id"));
@@ -136,7 +136,7 @@ public class ParticipanteDaoJDBC implements ParticipanteDaoInterface {
 				Participante participante = new Participante(
 						result.getString("nome"),
 						result.getString("numero_documento"),
-						TipoDocumento.valueOf(result.getString("numero_documento"))
+						TipoDocumento.valueOf(result.getString("tipo_documento"))
 				);
 				
 				participante.setId(result.getInt("id"));
@@ -168,7 +168,7 @@ public class ParticipanteDaoJDBC implements ParticipanteDaoInterface {
 				Participante participante = new Participante(
 						result.getString("nome"),
 						result.getString("numero_documento"),
-						TipoDocumento.valueOf(result.getString("numero_documento"))
+						TipoDocumento.valueOf(result.getString("tipo_documento"))
 				);
 				
 				participante.setId(result.getInt("id"));

@@ -33,7 +33,7 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface {
 
 			try {
 				String query = "INSERT INTO atividade "
-						+ "(titulo, descricao, tipo, data_inicio, data_termino, duracao, nome_responsavel, id_evento) "
+						+ "(titulo_atividade, descricao_atividade, tipo, data_inicio_atividade, data_termino_atividade, duracao, nome_responsavel, id_evento) "
 						+ "VALUES " + "(?, ?, ?, ?, ?, ?, ?, ?)";
 
 				statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -73,8 +73,8 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface {
 	public void editarAtividade(Atividade atividade) {
 		PreparedStatement statement = null;
 		try {
-			String query = "UPDATE atividade " + "SET " + "titulo =  ?, " + "descricao =  ?, " + "tipo =  ? "
-					+ "data_inicio =  ? " + "data_termino =  ? " + "duracao =  ? " + "nome_responsavel =  ? "
+			String query = "UPDATE atividade " + "SET " + "titulo_atividade =  ?, " + "descricao_atividade =  ?, " + "tipo =  ? "
+					+ "data_inicio_atividade =  ? " + "data_termino_atividade =  ? " + "duracao =  ? " + "nome_responsavel =  ? "
 					+ "id_evento =  ? " + "WHERE id = ?";
 
 			statement = conn.prepareStatement(query);
@@ -112,11 +112,16 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface {
 	private Atividade instantiateAtividade(ResultSet rs, Evento evento) throws SQLException {
 		Atividade atividade = new Atividade();
 		atividade.setId(rs.getInt("id"));
-		atividade.setTitulo(rs.getString("titulo"));
-		atividade.setDescricao(rs.getString("descricao"));
+		atividade.setTitulo(rs.getString("titulo_atividade"));
+		atividade.setDescricao(rs.getString("descricao_atividade"));
 		atividade.setTipoAtividade(TipoAtividade.valueOf(rs.getString("tipo")));
+<<<<<<< HEAD
 		atividade.setDataInicio(rs.getTimestamp("data_inicio").toLocalDateTime());
 		atividade.setDataTermino(rs.getTimestamp("data_termino").toLocalDateTime());
+=======
+		atividade.setData_inicio(rs.getTimestamp("data_inicio_atividade").toLocalDateTime());
+		atividade.setData_termino(rs.getTimestamp("data_termino_atividade").toLocalDateTime());
+>>>>>>> d1714ca7f302d7098b6bf6399eb5a9323359793f
 		atividade.setDuracao(rs.getDouble("duracao"));
 		atividade.setNomeResponsavel(rs.getString("nome_responsavel"));
 		atividade.setEvento(evento);
@@ -141,9 +146,9 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT *, evento.nome FROM atividade INNER JOIN evento "
+					"SELECT * FROM atividade INNER JOIN evento "
 					+ "WHERE atividade.id_evento = evento.id " 
-							+ "ORDER BY atividade.titulo");
+							+ "ORDER BY titulo_atividade");
 
 			rs = st.executeQuery();
 
@@ -201,12 +206,12 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface {
 	}
 	
 	@Override
-	public List<Atividade> listarTodosPorNome(String titulo) {
+	public List<Atividade> listarTodosPorNome(String titulo_atividade) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 
 		try {
-			st = conn.prepareStatement("SELECT * FROM atividade " + "WHERE titulo LIKE '%" + titulo + "%'");
+			st = conn.prepareStatement("SELECT * FROM atividade " + "WHERE titulo_atividade LIKE '%" + titulo_atividade + "%'");
 			rs = st.executeQuery();
 
 			List<Atividade> atividades = new ArrayList<>();

@@ -131,7 +131,7 @@ public class Atividade {
 		stringBuilder.append(", Tipo de atividade: " + this.getTipoAtividade());
 		stringBuilder.append(", Data inicio: " + this.getData_inicio().format(formatacao));
 		stringBuilder.append(", Data termino: " + this.getData_termino().format(formatacao));
-		stringBuilder.append(", Druração:" + this.getDuracao());
+		stringBuilder.append(", Duração:" + this.getDuracao());
 		stringBuilder.append(", Nome do responsável:" + this.getNome_responsavel());
 		stringBuilder.append(", " + this.getEvento());
 		

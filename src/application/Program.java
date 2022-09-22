@@ -33,6 +33,7 @@ public class Program {
 		String editGestor_numero_documento_old, gestor_numero_documento, gestor_nome;
 		List<Usuario> gestores;
 		List<Evento> eventos;
+		List<Atividade> atividades;
 		EventoDaoJDBC eventoDaoJDBC = new EventoDaoJDBC(conn);
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -473,6 +474,10 @@ public class Program {
 										break;
 									case 6:
 										// Listar todas as atividades
+										atividades = atividadeDaoJDBC.listarTodos();
+										for(Atividade atividade: atividades) {
+											System.out.println(atividade);
+										}
 										break;
 									case 7:
 										// Listar atividades por nome

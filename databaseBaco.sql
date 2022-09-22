@@ -43,9 +43,10 @@ create table usuario(
     ultimo_acesso datetime
 );
 
-create table participante_atividade(
+create table inscricao(
     id_participante int not null,
     id_atividade int not null,
+    checkin boolean,
     FOREIGN KEY (id_participante) REFERENCES participante (id),
     FOREIGN KEY (id_atividade) REFERENCES atividade (id),
     PRIMARY KEY(id_participante, id_atividade)

@@ -1,5 +1,7 @@
 package model.entities.certificado;
 
+import java.time.LocalDate;
+
 import model.entities.atividade.Atividade;
 import model.entities.evento.Evento;
 import model.entities.participante.Participante;
@@ -7,21 +9,20 @@ import model.enums.TipoAtividade;
 
 public class Certificado {
 	
-	private Atividade Responsavel;
-	private Atividade dataCertificado;
+	private String responsavel;
+	private LocalDate dataCertificado;
 	private TipoAtividade tipoAtividade;
-	private Atividade titulo;
-	private Evento tituloEvento;
-	private Atividade duracao;
+	private String titulo;
+	private String tituloEvento;
+	private Double duracao;
 	private Participante participante;
 	private Boolean checkin;
 	
 	public Certificado() {}
 
-	public Certificado(Atividade responsavel, Atividade dataCertificado, TipoAtividade tipoAtividade, Atividade titulo,
-			Evento tituloEvento, Atividade duracao, Participante participante, Boolean checkin) {
-		super();
-		Responsavel = responsavel;
+	public Certificado(String responsavel, LocalDate dataCertificado, TipoAtividade tipoAtividade, String titulo,
+			String tituloEvento, Double duracao, Participante participante, Boolean checkin) {
+		this.responsavel = responsavel;
 		this.dataCertificado = dataCertificado;
 		this.tipoAtividade = tipoAtividade;
 		this.titulo = titulo;
@@ -30,57 +31,68 @@ public class Certificado {
 		this.participante = participante;
 		this.checkin = checkin;
 	}
+	
+	
+	public String getResponsavel() {
+		return responsavel;
+	}
 
-	public Atividade getResponsavel() {
-		return Responsavel;
+	public void setResponsavel(String responsavel) {
+		this.responsavel = responsavel;
 	}
-	public void setResponsavel(Atividade responsavel) {
-		Responsavel = responsavel;
-	}
-	public Atividade getDataCertificado() {
+
+	public LocalDate getDataCertificado() {
 		return dataCertificado;
 	}
-	public void setDataCertificado(Atividade dataCertificado) {
+
+	public void setDataCertificado(LocalDate dataCertificado) {
 		this.dataCertificado = dataCertificado;
 	}
+
 	public TipoAtividade getTipoAtividade() {
 		return tipoAtividade;
 	}
+
 	public void setTipoAtividade(TipoAtividade tipoAtividade) {
 		this.tipoAtividade = tipoAtividade;
 	}
-	
-	public Atividade getTitulo() {
+
+	public String getTitulo() {
 		return titulo;
 	}
 
-	public void setTitulo(Atividade titulo) {
+	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-	
-	public Evento getTituloEvento() {
+
+	public String getTituloEvento() {
 		return tituloEvento;
 	}
 
-	public void setTituloEvento(Evento tituloEvento) {
+	public void setTituloEvento(String tituloEvento) {
 		this.tituloEvento = tituloEvento;
 	}
 
-	public Atividade getDuracao() {
+	public Double getDuracao() {
 		return duracao;
 	}
-	public void setDuracao(Atividade duracao) {
+
+	public void setDuracao(Double duracao) {
 		this.duracao = duracao;
 	}
+
 	public Participante getParticipante() {
 		return participante;
 	}
+
 	public void setParticipante(Participante participante) {
 		this.participante = participante;
 	}
+
 	public Boolean getCheckin() {
 		return checkin;
 	}
+
 	public void setCheckin(Boolean checkin) {
 		this.checkin = checkin;
 	}

@@ -512,6 +512,10 @@ public class Program {
 										break;
 									case 5:
 										// Excluir atividade
+										System.out.print("Id da atividade que será excluída: ");
+										Integer id_deleteAtividade = scanner.nextInt();
+										atividadeDaoJDBC.excluirAtividade(id_deleteAtividade);
+										System.out.println("Deletado com sucesso! ");
 										break;
 									case 6:
 										// Listar todas as atividades

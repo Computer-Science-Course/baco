@@ -17,7 +17,7 @@ public final class MenuGestor {
 	// --------- ATIVIDADE --------- 
 	public final static UiMenu atividade = new UiMenu(
 			"Atividade",
-			Arrays.asList("Criar atividade", "Check-in", "Gerar certificado", "Editar atividade", "Excluir atividade", "Listar todas atividade", "Listar atividades por nome",  "Voltar")
+			Arrays.asList("Criar atividade", "Check-in", "Gerar certificado", "Editar atividade", "Excluir atividade", "Inscrição", "Listar todas atividade", "Listar atividades por nome",  "Voltar")
 	);
 	
 	// --------- PARTICIPANTE --------- 

@@ -7,7 +7,7 @@ import model.entities.usuario.Usuario;
 
 public interface ParticipanteDaoInterface {
 	void criarParticipante(Participante participante);
-	void editarParticipante(Integer id, Participante participante);
+	void editarParticipante(Participante participante);
 	void excluirParticipante(Integer id);
 	List<Participante> listarTodos();
 	List<Participante> listarPorDocumento(String numero_documento);

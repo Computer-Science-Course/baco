@@ -83,6 +83,7 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface {
 					+ "nome_responsavel =  ? "
 					+ "id_evento =  ? " 
 					+ "WHERE id = ?";
+
 			statement = conn.prepareStatement(query);
 			statement.setString(1, atividade.getTitulo());
 			statement.setString(2, atividade.getDescricao());

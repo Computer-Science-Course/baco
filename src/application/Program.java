@@ -424,7 +424,7 @@ public class Program {
 							break;
 						case 2:
 							option = 0;
-							while(option != 8){
+							while(option != 9){
 								MenuGestor.atividade.showMenu();
 								option = scanner.nextInt();
 								switch(option) {
@@ -514,13 +514,16 @@ public class Program {
 										// Excluir atividade
 										break;
 									case 6:
+										//Inscrição
+										break;
+									case 7:
 										// Listar todas as atividades
 										atividades = atividadeDaoJDBC.listarTodos();
 										for(Atividade atividade: atividades) {
 											System.out.println(atividade);
 										}
 										break;
-									case 7:
+									case 8:
 										// Listar atividades por nome
 										scanner = new Scanner(System.in);
 
@@ -532,7 +535,7 @@ public class Program {
 										}
 
 										break;
-									case 8:
+									case 9:
 										// Sair do menu
 										break;
 									default:

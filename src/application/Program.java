@@ -468,6 +468,44 @@ public class Program {
 										break;
 									case 4:
 										// Editar atividade
+										newEvento = new Evento(1, null, null, null, null, null);
+										newAtividade = new Atividade(1, "Competição Robótica", "Cada equipe irá ter 30min de preparação", TipoAtividade.WORKSHOP, LocalDateTime.now(), 
+												LocalDateTime.now(), 2.0, "Sayury Kato", newEvento);
+										/*
+										 * System.out.print("Id da atividade: ");
+										 * editAtividade.setId(scanner.nextInt());
+										 * 
+										 * scanner = new Scanner(System.in); System.out.print("Novo título: ");
+										 * editAtividade.setTitulo(scanner.nextLine());
+										 * 
+										 * System.out.print("Nova descrição: ");
+										 * editAtividade.setDescricao(scanner.nextLine());
+										 * 
+										 * System.out.print("Tipo de Atividade (OFICINA, WORKSHOP): ");
+										 * editAtividade.setTipoAtividade(TipoAtividade.valueOf(scanner.next()));
+										 * 
+										 * scanner = new Scanner(System.in);
+										 * System.out.print("Nova data de início (dd/MM/yyyy HH:mm): ");
+										 * editAtividade.setDataInicio(LocalDateTime.parse(scanner.nextLine(),
+										 * formatterWithHour));
+										 * 
+										 * System.out.print("Nova data de término (dd/MM/yyyy HH:mm): ");
+										 * editAtividade.setDataTermino(LocalDateTime.parse(scanner.nextLine(),
+										 * formatterWithHour));
+										 * 
+										 * System.out.print("Duração: ");
+										 * editAtividade.setDuracao(scanner.nextDouble());
+										 * 
+										 * scanner = new Scanner(System.in); System.out.print("Novo Responsável: ");
+										 * editAtividade.setNomeResponsavel(scanner.nextLine());
+										 * 
+										 * System.out.print("ID do evento: "); Integer id_event = scanner.nextInt();
+										 * newEvento = new Evento(id_event, null, null, null, null, null);
+										 * editAtividade.setEvento(newEvento);
+										 */
+										
+										atividadeDaoJDBC.editarAtividade(newAtividade);
+										System.out.println("Atualizado!");
 										break;
 									case 5:
 										// Excluir atividade
@@ -481,6 +519,15 @@ public class Program {
 										break;
 									case 7:
 										// Listar atividades por nome
+										scanner = new Scanner(System.in);
+
+										System.out.print("Nome da atividade: ");
+										String nomeAtividade = scanner.nextLine();
+										atividades = atividadeDaoJDBC.listarTodosPorNome(nomeAtividade);
+										for(Atividade atividade: atividades) {
+											System.out.println(atividade);
+										}
+
 										break;
 									case 8:
 										// Sair do menu

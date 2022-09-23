@@ -73,9 +73,16 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface {
 	public void editarAtividade(Atividade atividade) {
 		PreparedStatement statement = null;
 		try {
-			String query = "UPDATE atividade " + "SET " + "titulo_atividade =  ?, " + "descricao_atividade =  ?, " + "tipo =  ? "
-					+ "data_inicio_atividade =  ? " + "data_termino_atividade =  ? " + "duracao =  ? " + "nome_responsavel =  ? "
-					+ "id_evento =  ? " + "WHERE id = ?";
+			String query = "UPDATE atividade " 
+					+ "SET " + "titulo_atividade =  ?, " 
+					+ "descricao_atividade =  ?, " 
+					+ "tipo =  ? "
+					+ "data_inicio_atividade =  ? " 
+					+ "data_termino_atividade =  ? " 
+					+ "duracao =  ? " 
+					+ "nome_responsavel =  ? "
+					+ "id_evento =  ? " 
+					+ "WHERE id = ?";
 
 			statement = conn.prepareStatement(query);
 			statement.setString(1, atividade.getTitulo());
@@ -140,6 +147,7 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
+
 			st = conn.prepareStatement(
 					"SELECT * FROM atividade INNER JOIN evento "
 					+ "WHERE atividade.id_evento = evento.id " 
@@ -183,13 +191,13 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface {
 				Atividade atividade = new Atividade();
 				
 				atividade.setId(id);
-				atividade.setTitulo(rs.getString("titulo"));
-				atividade.setDescricao(rs.getString("descricao"));
+				atividade.setTitulo(rs.getString("titulo_atividade"));
+				atividade.setDescricao(rs.getString("descricao_atividade"));
 				atividade.setTipoAtividade(TipoAtividade.valueOf(rs.getString("tipo")));
 				atividade.setDataInicio(rs.getTimestamp("data_inicio_atividade").toLocalDateTime());
 				atividade.setDataTermino(rs.getTimestamp("data_termino_atividade").toLocalDateTime());
 				atividade.setDuracao(rs.getDouble("duracao"));
-				atividade.setNomeResponsavel(null);
+				atividade.setNomeResponsavel("nome_responsavel");
 				atividade.setEvento(eventoDaoJDBC.listarTodosPorId(rs.getInt("id_evento")));
 				return atividade;
 			}
@@ -201,32 +209,57 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface {
 	}
 	
 	@Override
-	public List<Atividade> listarTodosPorNome(String titulo_atividade) {
+	public List<Atividade> listarTodosPorNome(String nome) {
+		
+		List<Atividade> atividades = new ArrayList<>();
+		EventoDaoJDBC eventoDaoJDBC = new EventoDaoJDBC(conn);
 		PreparedStatement st = null;
 		ResultSet rs = null;
-
+		
 		try {
-			st = conn.prepareStatement("SELECT * FROM atividade " + "WHERE titulo_atividade LIKE '%" + titulo_atividade + "%'");
+			st = conn.prepareStatement(
+					"SELECT * FROM atividade " 
+					+ "WHERE titulo_atividade LIKE '%" + nome + "%'");
 			rs = st.executeQuery();
-
-			List<Atividade> atividades = new ArrayList<>();
-			Map<Integer, Evento> map = new HashMap<>();
-
 			while (rs.next()) {
-
-				Evento evento = map.get(rs.getInt("id_evento"));
-
-				if (evento == null) {
-					evento = instantiateEvento(rs);
-					map.put(rs.getInt("id_evento"), evento);
-				}
-
-				Atividade atividade = instantiateAtividade(rs, evento);
+				Atividade atividade = new Atividade();
+				atividade.setId(rs.getInt("id"));
+				atividade.setTitulo(rs.getString("titulo_atividade"));
+				atividade.setDescricao(rs.getString("descricao_atividade"));
+				atividade.setTipoAtividade(TipoAtividade.valueOf(rs.getString("tipo")));
+				atividade.setDataInicio(rs.getTimestamp("data_inicio_atividade").toLocalDateTime());
+				atividade.setDataTermino(rs.getTimestamp("data_termino_atividade").toLocalDateTime());
+				atividade.setDuracao(rs.getDouble("duracao"));
+				atividade.setNomeResponsavel(rs.getString("nome_responsavel"));
+				atividade.setEvento(eventoDaoJDBC.listarTodosPorId(rs.getInt("id_evento")));
 				atividades.add(atividade);
 			}
 			return atividades;
+			
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		}
+		} 
 	}
 }
+
+/*
+ * PreparedStatement st = null; ResultSet rs = null;
+ * 
+ * try { st = conn.
+ * prepareStatement("SELECT * FROM atividade WHERE titulo_atividade LIKE '%" +
+ * nome + "%'"); rs = st.executeQuery();
+ * 
+ * List<Atividade> atividades = new ArrayList<>(); Map<Integer, Evento> map =
+ * new HashMap<>();
+ * 
+ * while (rs.next()) {
+ * 
+ * Evento evento = map.get(rs.getInt("id_evento"));
+ * 
+ * if (evento == null) { evento = instantiateEvento(rs);
+ * map.put(rs.getInt("id_evento"), evento); }
+ * 
+ * Atividade atividade = instantiateAtividade(rs, evento);
+ * atividades.add(atividade); } return atividades; } catch (SQLException e) {
+ * throw new DbException(e.getMessage()); } } }
+ */

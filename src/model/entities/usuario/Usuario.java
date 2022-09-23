@@ -14,6 +14,8 @@ public class Usuario {
 	private Boolean isAdm;
 	private LocalDateTime ultimo_acesso;
 	
+	
+	public Usuario() {}
 	public Usuario(
 			String numero_documento, TipoDocumento tipo_documento, String nome_completo, String senha,
 			Boolean isAdm, LocalDateTime ultimo_acesso

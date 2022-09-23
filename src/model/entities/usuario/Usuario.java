@@ -86,7 +86,11 @@ public class Usuario {
 		stringBuilder.append(", Nome Completo: " + this.getNomeCompleto());
 		stringBuilder.append(", Senha: " + this.getSenha());
 		stringBuilder.append(", Adm: " + this.isAdm());
-		stringBuilder.append(", Último acesso: " + this.getUltimoAcesso().format(formatacao));
+		if(this.getUltimoAcesso() != null) {
+			stringBuilder.append(", Último acesso: " + this.getUltimoAcesso().format(formatacao));			
+		}else {
+			stringBuilder.append(", Último acesso: --/--/--");						
+		}
 		
 		return stringBuilder.toString();
 	}

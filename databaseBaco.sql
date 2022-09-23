@@ -35,7 +35,7 @@ create table atividade(
 
 create table usuario(
     id int primary key auto_increment not null,
-    numero_documento varchar(16) not null,
+    numero_documento varchar(16) not null unique,
     tipo_documento varchar(16) not null,
     nome_completo varchar(40) not null,
     senha varchar(16) not null,
@@ -55,5 +55,9 @@ create table inscricao(
 INSERT INTO usuario
 	(numero_documento, tipo_documento, nome_completo, senha, isAdm, ultimo_acesso)
 VALUES
-    ("123456", "CPF", "usuario master", "123", true, null);
+    ("192919", "MATRICULA", "Mateus Santos", "1234", true, null),
+    ("192921", "MATRICULA", "Sayury Kato", "1234", true, null),
+    ("192920", "MATRICULA", "Newdon Ataide", "1234", true, null),
+    ("192918", "MATRICULA", "Ítala Vitória", "1234", true, null),
+    ("123456", "RG", "Grande Gestor", "1234", false, null);
     

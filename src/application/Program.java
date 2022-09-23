@@ -565,6 +565,7 @@ public class Program {
 									case 2:
 										// Editar participante
 										scanner = new Scanner(System.in);
+										participante = new Participante();
 										System.out.print("Id do Participante: ");
 										participante.setId(scanner.nextInt());
 										scanner.nextLine();
@@ -582,6 +583,12 @@ public class Program {
 										break;
 									case 3:
 										// Excluir participante
+										scanner = new Scanner(System.in);
+										participante = new Participante();
+										System.out.print("Id do Participante: ");
+										participante.setId(scanner.nextInt());
+										
+										participanteDaoJDBC.excluirParticipante(participante.getId());
 										break;
 									case 4:
 										option = 0;

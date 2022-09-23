@@ -84,7 +84,7 @@ public class ParticipanteDaoJDBC implements ParticipanteDaoInterface {
 	public void excluirParticipante(Integer id) {
 		GenericDbJDBC genericDbJDBC = new GenericDbJDBC(conn);
 		
-		genericDbJDBC.deleteWhere("usuario", "id", id.toString());
+		genericDbJDBC.deleteWhere("participante", "id", id.toString());
 		
 	}
 	

@@ -38,6 +38,7 @@ public class Program {
 		List<Atividade> atividades;
 		EventoDaoJDBC eventoDaoJDBC = new EventoDaoJDBC(conn);
 		Participante participante = new Participante();
+		Atividade atividade = new Atividade();
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		DateTimeFormatter formatterWithHour = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -515,12 +516,22 @@ public class Program {
 										break;
 									case 6:
 										//Inscrição
+										scanner = new Scanner(System.in);
+										participante = new Participante();
+										atividade = new Atividade();
+										System.out.print("Id do participante:");
+										participante.setId(scanner.nextInt());
+										
+										System.out.print("Id do atividade:");
+										atividade.setId(scanner.nextInt());
+										
+										atividadeDaoJDBC.inscricao(participante, atividade);
 										break;
 									case 7:
 										// Listar todas as atividades
 										atividades = atividadeDaoJDBC.listarTodos();
-										for(Atividade atividade: atividades) {
-											System.out.println(atividade);
+										for(Atividade one_atividade: atividades) {
+											System.out.println(one_atividade);
 										}
 										break;
 									case 8:
@@ -530,8 +541,8 @@ public class Program {
 										System.out.print("Nome da atividade: ");
 										String nomeAtividade = scanner.nextLine();
 										atividades = atividadeDaoJDBC.listarTodosPorNome(nomeAtividade);
-										for(Atividade atividade: atividades) {
-											System.out.println(atividade);
+										for(Atividade one_atividade: atividades) {
+											System.out.println(one_atividade);
 										}
 
 										break;

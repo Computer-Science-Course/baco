@@ -14,6 +14,7 @@ import java.util.Map;
 import controller.dao.evento.EventoDaoJDBC;
 import model.entities.atividade.Atividade;
 import model.entities.evento.Evento;
+import model.entities.participante.Participante;
 import model.enums.TipoAtividade;
 import model.service.DbException;
 
@@ -141,6 +142,32 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface {
 		return evento;
 	}
 
+	@Override
+	public void inscricao(Participante participante, Atividade atividade) {
+		PreparedStatement statement = null;
+
+		try {
+			String query = "INSERT INTO inscricao "
+					+ "(id_participante, id_atividade, checkin) "
+					+ "VALUES " + "(?, ?, false)";
+
+			statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+			statement.setInt(1, participante.getId());
+			statement.setInt(2, atividade.getId());
+
+			int rowsAffected = statement.executeUpdate();
+
+			if (rowsAffected <= 0) {
+				throw new DbException("Unexpected error! No rows affected!");
+			}
+		}
+
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+	}
+	
 	@Override
 	public List<Atividade> listarTodos() {
 

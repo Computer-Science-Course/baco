@@ -55,7 +55,7 @@ public class ParticipanteDaoJDBC implements ParticipanteDaoInterface {
 	}
 
 	@Override
-	public void editarParticipante(Integer id, Participante participante) {
+	public void editarParticipante(Participante participante) {
 		PreparedStatement statement = null;
 		try {			
 			String query = "UPDATE participante " +
@@ -64,7 +64,7 @@ public class ParticipanteDaoJDBC implements ParticipanteDaoInterface {
 						 "numero_documento =  ?, " +
 						 "tipo_documento =  ? " +
 						 "WHERE " +
-						 "(id = " + id + ")";
+						 "(id = " + participante.getId() + ")";
 			
 			statement = conn.prepareStatement(query);
 			statement.setString(1, participante.getNome());

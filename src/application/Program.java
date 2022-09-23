@@ -564,6 +564,21 @@ public class Program {
 										break;
 									case 2:
 										// Editar participante
+										scanner = new Scanner(System.in);
+										System.out.print("Id do Participante: ");
+										participante.setId(scanner.nextInt());
+										scanner.nextLine();
+										
+										System.out.print("Nome do Participante: ");
+										participante.setNome(scanner.nextLine());
+										
+										System.out.print("Numero do documento: ");
+										participante.setNumeroDocumento(scanner.nextLine());
+																				
+										System.out.print("Tipo de documento (CPF, MATRICULA, RG): ");
+										participante.setTipoDocumento(TipoDocumento.valueOf(scanner.nextLine().toUpperCase()));
+										
+										participanteDaoJDBC.editarParticipante(participante);
 										break;
 									case 3:
 										// Excluir participante

@@ -22,8 +22,8 @@ create table participante(
 
 create table atividade(
     id int not null primary key auto_increment,
-    titulo varchar(40) not null,
-    descricao varchar(100) not null,
+    titulo_atividade varchar(40) not null,
+    descricao_atividade varchar(100) not null,
     tipo varchar(16),
     data_inicio_atividade dateTime not null,
     data_termino_atividade dateTime not null,

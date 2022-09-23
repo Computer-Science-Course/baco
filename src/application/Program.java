@@ -13,6 +13,7 @@ import controller.dao.participante.ParticipanteDaoJDBC;
 import controller.dao.usuario.UsuarioDaoJDBC;
 import model.entities.atividade.Atividade;
 import model.entities.evento.Evento;
+import model.entities.login.Login;
 import model.entities.participante.Participante;
 import model.entities.usuario.Adm;
 import model.entities.usuario.Usuario;
@@ -48,16 +49,32 @@ public class Program {
 		ParticipanteDaoJDBC participanteDaoJDBC = new ParticipanteDaoJDBC(conn);
 		
 		// ------------ ADM ------------
-		// Variável mocada para definir se o usuário é ADM
-		Boolean isAdm = false;
 		// Variável mocada para definir ADM
-		Adm adm = new Adm("123456", TipoDocumento.valueOf("CPF"), "usuario master", "123", true, null);
 		List<Usuario> adms;
 		String editAdm_numero_documento_old, adm_numero_documento, adm_nome;
 		
 		try {
+			Login login = new Login();
+			Usuario usuario = new Usuario();
+			do {
+				System.out.println("LOGIN\n===================");
+				System.out.print("Número de acesso: ");
+				login.setNick(scanner.nextLine());
+				
+				System.out.print("Senha: ");
+				login.setSenha(scanner.nextLine());
+				
+				List<Usuario> usuarios = usuarioDaoJDBC.listarTodosPorDocumento(null, login.getNick());
+				if(usuarios.size() > 0) {
+					for(Usuario user: usuarios) {
+						usuario = user;
+					}
+				}else {
+					System.out.println("Nenhum usuário referente aos dados informados");
+				}
+			}while(!(login.getSenha().equals(usuario.getSenha())));
 			// Se for ADM, vai entrar nesse menu
-			if(isAdm) {
+			if(usuario.isAdm()) {	
 				Integer adm_options_number = 3;
 				while(option != adm_options_number) {
 					MenuAdm.principal.showMenu();
@@ -71,7 +88,7 @@ public class Program {
 								switch(option) {
 									case 1:
 										// Visualizar adm-perfil
-										adms = usuarioDaoJDBC.listarTodosPorDocumento(true, adm.getNumeroDocumento());
+										adms = usuarioDaoJDBC.listarTodosPorDocumento(true, usuario.getNumeroDocumento());
 										for(Usuario ADM: adms) {
 											System.out.println(ADM);
 										}
@@ -109,15 +126,15 @@ public class Program {
 															editAdm_numero_documento_old,
 															editedAdm
 													);
-													editedAdm.setSenha(adm.getSenha());
-													adm = editedAdm;
+													editedAdm.setSenha(usuario.getSenha());
+													usuario = editedAdm;
 													break;
 												case 2:
 													// Editar adm-senha
 													scanner = new Scanner(System.in);
 													System.out.print("Senha antiga: ");
 													senha1 = scanner.nextLine();
-													if(senha1.equals(adm.getSenha())) {
+													if(senha1.equals(usuario.getSenha())) {
 														do {
 															System.out.print("Senha: ");
 															senha1 = scanner.nextLine();
@@ -126,7 +143,7 @@ public class Program {
 														}while(!senha1.equals(senha2));
 														
 														usuarioDaoJDBC.editarSenhaUsuario(
-																adm.getNumeroDocumento(),
+																usuario.getNumeroDocumento(),
 																new Usuario(
 																		null,
 																		null,
@@ -136,7 +153,7 @@ public class Program {
 																		null
 																		)
 																);
-														adm.setSenha(senha1);
+														usuario.setSenha(senha1);
 													}else {
 														System.out.println("[Senha inválida!]");
 													}
@@ -467,6 +484,16 @@ public class Program {
 										break;
 									case 2:
 										// Check-in em atividade
+										scanner = new Scanner(System.in);
+										participante = new Participante();
+										atividade = new Atividade();
+										System.out.print("Id do participante:");
+										participante.setId(scanner.nextInt());
+										
+										System.out.print("Id do atividade:");
+										atividade.setId(scanner.nextInt());
+										
+										atividadeDaoJDBC.checkin(participante, atividade);
 										break;
 									case 3:
 										// Gerar certificado

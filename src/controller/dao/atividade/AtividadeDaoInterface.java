@@ -8,6 +8,7 @@ import model.entities.participante.Participante;
 public interface AtividadeDaoInterface {
 	
 	void criarAtividade(Atividade atividade);
+	void checkin(Participante participante, Atividade atividade);
 	void editarAtividade(Atividade atividade);
 	void excluirAtividade(Integer id);
 	void inscricao(Participante participante, Atividade atividade);

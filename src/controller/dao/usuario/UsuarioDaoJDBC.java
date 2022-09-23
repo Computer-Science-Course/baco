@@ -158,10 +158,16 @@ public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 		DateTimeFormatter formatterWithHour = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		
 		try {
-			
-			String query = "SELECT * FROM usuario " +
+			String query;
+			if(isAdm != null) {				
+				query = "SELECT * FROM usuario " +
 						"WHERE isAdm = " + isAdm + 
 						" AND numero_documento = " + numero_documento;
+			} else {
+				query = "SELECT * FROM usuario " +
+						"WHERE " + 
+						"numero_documento = " + numero_documento;
+			}
 			
 			Statement statement = conn.createStatement();
 			
@@ -175,7 +181,7 @@ public class UsuarioDaoJDBC implements UsuarioDaoInterface{
 						result.getString("numero_documento"),
 						TipoDocumento.valueOf(result.getString("tipo_documento")),
 						result.getString("nome_completo"),
-						null,
+						result.getString("senha"),
 						result.getBoolean("isAdm"),
 						ultimo_acesso
 				);

@@ -2,9 +2,6 @@ package model.entities.certificado;
 
 import java.time.LocalDate;
 
-import model.entities.atividade.Atividade;
-import model.entities.evento.Evento;
-import model.entities.participante.Participante;
 import model.enums.TipoAtividade;
 
 public class Certificado {
@@ -15,13 +12,14 @@ public class Certificado {
 	private String titulo;
 	private String tituloEvento;
 	private Double duracao;
-	private Participante participante;
+	private String participante;
 	private Boolean checkin;
 	
 	public Certificado() {}
 
+
 	public Certificado(String responsavel, LocalDate dataCertificado, TipoAtividade tipoAtividade, String titulo,
-			String tituloEvento, Double duracao, Participante participante, Boolean checkin) {
+			String tituloEvento, Double duracao, String participante, Boolean checkin) {
 		this.responsavel = responsavel;
 		this.dataCertificado = dataCertificado;
 		this.tipoAtividade = tipoAtividade;
@@ -37,65 +35,81 @@ public class Certificado {
 		return responsavel;
 	}
 
+
 	public void setResponsavel(String responsavel) {
 		this.responsavel = responsavel;
 	}
+
 
 	public LocalDate getDataCertificado() {
 		return dataCertificado;
 	}
 
+
 	public void setDataCertificado(LocalDate dataCertificado) {
 		this.dataCertificado = dataCertificado;
 	}
+
 
 	public TipoAtividade getTipoAtividade() {
 		return tipoAtividade;
 	}
 
+
 	public void setTipoAtividade(TipoAtividade tipoAtividade) {
 		this.tipoAtividade = tipoAtividade;
 	}
+
 
 	public String getTitulo() {
 		return titulo;
 	}
 
+
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
+
 
 	public String getTituloEvento() {
 		return tituloEvento;
 	}
 
+
 	public void setTituloEvento(String tituloEvento) {
 		this.tituloEvento = tituloEvento;
 	}
+
 
 	public Double getDuracao() {
 		return duracao;
 	}
 
+
 	public void setDuracao(Double duracao) {
 		this.duracao = duracao;
 	}
 
-	public Participante getParticipante() {
+
+	public String getParticipante() {
 		return participante;
 	}
 
-	public void setParticipante(Participante participante) {
+
+	public void setParticipante(String participante) {
 		this.participante = participante;
 	}
+
 
 	public Boolean getCheckin() {
 		return checkin;
 	}
 
+
 	public void setCheckin(Boolean checkin) {
 		this.checkin = checkin;
 	}
+
 
 	@Override
 	public String toString() {
@@ -112,18 +126,4 @@ public class Certificado {
 		
 		return stringBuilder.toString();
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

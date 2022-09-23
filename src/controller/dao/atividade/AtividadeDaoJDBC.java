@@ -29,7 +29,13 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface {
 	@Override
 	public void criarAtividade(Atividade atividade) {
 		List<Atividade> atividades = this.listarTodosPorNome(atividade.getTitulo());
-		if (atividades.size() == 0) {
+		Boolean isEvento_diferente = true;
+		for(Atividade a: atividades) {
+			if(a.getEvento().getId() == atividade.getEvento().getId()) {
+				isEvento_diferente = false;
+			}
+		}
+		if (atividades.size() == 0 || isEvento_diferente) {
 			PreparedStatement statement = null;
 
 			try {

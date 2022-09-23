@@ -76,11 +76,11 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface {
 			String query = "UPDATE atividade " 
 					+ "SET " + "titulo_atividade =  ?, " 
 					+ "descricao_atividade =  ?, " 
-					+ "tipo =  ? "
-					+ "data_inicio_atividade =  ? " 
-					+ "data_termino_atividade =  ? " 
-					+ "duracao =  ? " 
-					+ "nome_responsavel =  ? "
+					+ "tipo =  ? ,"
+					+ "data_inicio_atividade =  ? ," 
+					+ "data_termino_atividade =  ? ," 
+					+ "duracao =  ? ," 
+					+ "nome_responsavel =  ? ,"
 					+ "id_evento =  ? " 
 					+ "WHERE id = ?";
 

@@ -54,6 +54,7 @@ public class Participante {
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
 		
+		stringBuilder.append("Id: " + this.getId() + ", ");
 		stringBuilder.append("Nome: " + this.getNome());
 		stringBuilder.append(", " + this.getTipoDocumento() + ": " + this.getNumeroDocumento());
 		

@@ -69,6 +69,24 @@ public class AtividadeDaoJDBC implements AtividadeDaoInterface {
 		}
 
 	}
+	
+	@Override
+	public void checkin(Participante participante, Atividade atividade) {
+		PreparedStatement statement = null;
+		try {
+			String query = "UPDATE inscricao " 
+					+ "SET " + "checkin = true " 
+					+ "WHERE id_participante = ? AND id_atividade = ?";
+
+			statement = conn.prepareStatement(query);
+			statement.setInt(1, participante.getId());
+			statement.setInt(2, atividade.getId());
+			statement.executeUpdate();
+
+		} catch (SQLException error) {
+			error.printStackTrace();
+		}
+	}
 
 	@Override
 	public void editarAtividade(Atividade atividade) {

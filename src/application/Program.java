@@ -467,6 +467,16 @@ public class Program {
 										break;
 									case 2:
 										// Check-in em atividade
+										scanner = new Scanner(System.in);
+										participante = new Participante();
+										atividade = new Atividade();
+										System.out.print("Id do participante:");
+										participante.setId(scanner.nextInt());
+										
+										System.out.print("Id do atividade:");
+										atividade.setId(scanner.nextInt());
+										
+										atividadeDaoJDBC.checkin(participante, atividade);
 										break;
 									case 3:
 										// Gerar certificado

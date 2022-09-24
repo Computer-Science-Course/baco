@@ -280,7 +280,7 @@ public class Program {
 									case 3:
 										// Excluir gestor
 										scanner = new Scanner(System.in);
-										System.out.print("Numero do documento do gestor a ser editado: ");
+										System.out.print("Numero do documento do gestor a ser excluído: ");
 										String deleteGestor_numero_documento = scanner.nextLine();
 										
 										usuarioDaoJDBC.excluirUsuario(deleteGestor_numero_documento);
@@ -387,6 +387,7 @@ public class Program {
 										System.out.print("Id do evento: ");
 										editEvento.setId(scanner.nextInt());
 										
+										scanner = new Scanner(System.in);
 										System.out.print("Novo nome do evento: ");
 										editEvento.setNome(scanner.nextLine());
 										

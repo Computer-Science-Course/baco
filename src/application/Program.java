@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.Scanner;
 
 import controller.dao.atividade.AtividadeDaoJDBC;
+import controller.dao.certificado.CertificadoDaoJDBC;
 import controller.dao.evento.EventoDaoJDBC;
 import controller.dao.participante.ParticipanteDaoJDBC;
 import controller.dao.usuario.UsuarioDaoJDBC;
@@ -47,6 +48,7 @@ public class Program {
 		UsuarioDaoJDBC usuarioDaoJDBC = new UsuarioDaoJDBC(conn);
 		AtividadeDaoJDBC atividadeDaoJDBC = new AtividadeDaoJDBC(conn);
 		ParticipanteDaoJDBC participanteDaoJDBC = new ParticipanteDaoJDBC(conn);
+		CertificadoDaoJDBC certificadoDaoJDBC = new CertificadoDaoJDBC(conn);
 		
 		// ------------ ADM ------------
 		// Variável mocada para definir ADM
@@ -498,6 +500,8 @@ public class Program {
 										break;
 									case 3:
 										// Gerar certificado
+										certificadoDaoJDBC.listarTodosPorAtividade(1);
+										
 										break;
 									case 4:
 										// Editar atividade

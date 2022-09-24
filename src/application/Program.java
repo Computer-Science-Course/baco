@@ -507,14 +507,22 @@ public class Program {
 											switch(option) {
 												case 1:
 													// Por atividade
+													System.out.print("Digite o ID da atividade: ");
+													Integer id_certificado = scanner.nextInt();
 													for(Certificado certificado:
-														certificadoDaoJDBC.listarTodosPorAtividade(2)
+														certificadoDaoJDBC.listarTodosPorAtividade(id_certificado)
 															) {
 														System.out.println(certificado);
 													}
 													break;
 												case 2:
 													// Por participante
+													System.out.println("Digite o ID do participante");
+													Integer id_certificadoParticipante = scanner.nextInt();
+													for(Certificado certificado: 
+														certificadoDaoJDBC.listarTodosPorParticipante(id_certificadoParticipante)) {
+														System.out.println(certificado);
+													}
 													break;
 												case 3:
 													break;

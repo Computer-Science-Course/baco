@@ -1,6 +1,7 @@
 package controller.dao.certificado;
 
 import java.sql.Connection;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import controller.dao.inscricao.InscricaoDaoJDBC;
 import model.entities.atividade.Atividade;
 import model.entities.certificado.Certificado;
 import model.entities.inscricao.Inscricao;
+import model.enums.TipoAtividade;
 
 public class CertificadoDaoJDBC implements CertificadoDaoInterface{
 	
@@ -17,29 +19,34 @@ public class CertificadoDaoJDBC implements CertificadoDaoInterface{
 		this.conn = conn;
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public List<Certificado> listarTodosPorAtividade(Integer id_atividade) {
 		List<Certificado> certificados = new ArrayList<>();
 		InscricaoDaoJDBC inscricaoDaoJDBC = new InscricaoDaoJDBC(conn);
 		
 		List<Inscricao> inscricoes = inscricaoDaoJDBC.listarTodasPorAtividade(id_atividade);
-		for(Inscricao obj: inscricoes) {
-			if(obj.getCheckin()==true) {
-				System.out.println(obj);
+		for(Inscricao inscricao: inscricoes) {
+			if(inscricao.getCheckin()) {
+				Certificado certificado = new Certificado();
+				certificado.setResponsavel(inscricao.getAtividade().getNomeResponsavel());
+				certificado.setDataCertificado(inscricao.getAtividade().getDataInicio().toLocalDate());
+				certificado.setTipoAtividade(inscricao.getAtividade().getTipoAtividade());
+				certificado.setTitulo(inscricao.getAtividade().getDescricao());
+				certificado.setTituloEvento(inscricao.getAtividade().getEvento().getNome());
+				certificado.setDuracao(inscricao.getAtividade().getDuracao());
+				certificado.setParticipante(inscricao.getParticipante().getNome());
+				certificado.setCheckin(true);
 				
+				certificados.add(certificado);
 			}
 			
-		}
-		
-		return null;
-		
-		 
+		}	
+		return certificados;	 
 	}
 		
-	
-	
-	
-	
 	
 	
 	@Override

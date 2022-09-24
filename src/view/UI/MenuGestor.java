@@ -20,6 +20,11 @@ public final class MenuGestor {
 			Arrays.asList("Criar atividade", "Check-in", "Gerar certificado", "Editar atividade", "Excluir atividade", "Inscrição", "Listar todas atividade", "Listar atividades por nome",  "Voltar")
 	);
 	
+	public final static UiMenu certificado = new UiMenu(
+			"Certificado",
+			Arrays.asList("Por Atividade", "Por participante", "Voltar")
+	);
+	
 	// --------- PARTICIPANTE --------- 
 	public final static UiMenu participante = new UiMenu(
 			"Participante",

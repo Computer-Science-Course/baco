@@ -1,6 +1,7 @@
 package model.entities.certificado;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import model.enums.TipoAtividade;
 
@@ -113,16 +114,19 @@ public class Certificado {
 
 	@Override
 	public String toString() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		StringBuilder stringBuilder = new StringBuilder();
 		
-		stringBuilder.append("\tCertificado\n");
+		stringBuilder.append("========================\n");
+		stringBuilder.append("\tCERTIFICADO\n\n");
 		stringBuilder.append("Certificamos que " + this.getParticipante());
-		stringBuilder.append(" participou com êxito da atividade " + this.getTipoAtividade());
+		stringBuilder.append(" \nparticipou com êxito da atividade " + this.getTipoAtividade());
 		stringBuilder.append(": " + this.getTitulo());
-		stringBuilder.append(", realizada em " + this.getDataCertificado());
+		stringBuilder.append(", \nrealizada em " + this.getDataCertificado().format(formatter));
 		stringBuilder.append(", durante a " + this.getTituloEvento());
-		stringBuilder.append(", com carga horária total de " + this.getDuracao());		
-		stringBuilder.append(" horas.");
+		stringBuilder.append(", \ncom carga horária total de " + this.getDuracao());		
+		stringBuilder.append(" horas.\n");
+		stringBuilder.append("========================\n");
 		
 		return stringBuilder.toString();
 	}

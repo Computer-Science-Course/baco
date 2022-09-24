@@ -49,7 +49,7 @@ public class InscricaoDaoJDBC implements InscricaoDaoInterface{
 				);
 				
 			}
-			return null;
+			return inscricoes;
 		}
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());
@@ -84,7 +84,7 @@ public class InscricaoDaoJDBC implements InscricaoDaoInterface{
 				
 			}
 			
-			return null;
+			return inscricoes;
 		}
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());

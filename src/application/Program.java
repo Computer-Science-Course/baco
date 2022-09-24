@@ -13,6 +13,7 @@ import controller.dao.evento.EventoDaoJDBC;
 import controller.dao.participante.ParticipanteDaoJDBC;
 import controller.dao.usuario.UsuarioDaoJDBC;
 import model.entities.atividade.Atividade;
+import model.entities.certificado.Certificado;
 import model.entities.evento.Evento;
 import model.entities.login.Login;
 import model.entities.participante.Participante;
@@ -42,7 +43,6 @@ public class Program {
 		Participante participante = new Participante();
 		Atividade atividade = new Atividade();
 		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		DateTimeFormatter formatterWithHour = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		
 		UsuarioDaoJDBC usuarioDaoJDBC = new UsuarioDaoJDBC(conn);
@@ -500,7 +500,28 @@ public class Program {
 										break;
 									case 3:
 										// Gerar certificado
-										certificadoDaoJDBC.listarTodosPorAtividade(1);
+										option = 0;
+										while(option != 3) {
+											MenuGestor.certificado.showMenu();
+											option = scanner.nextInt();
+											switch(option) {
+												case 1:
+													// Por atividade
+													for(Certificado certificado:
+														certificadoDaoJDBC.listarTodosPorAtividade(2)
+															) {
+														System.out.println(certificado);
+													}
+													break;
+												case 2:
+													// Por participante
+													break;
+												case 3:
+													break;
+												default:
+													System.out.println("[OPÇÃO INVÁLIDA]");
+											}
+										}
 										
 										break;
 									case 4:
